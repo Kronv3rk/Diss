@@ -1,0 +1,36 @@
+# Series C-DZZ: remote-sensing tile store workload.
+# Target scenario: distributed storage of satellite image tiles addressed by
+# {satellite, scene_id, tile_xyz}. The simulator still uses numeric key hashes;
+# this config fixes the domain interpretation and workload profile for the
+# paper-specific run.
+
+extends: base
+name: C-DZZ
+description: "Remote-sensing tile store with Zipf-distributed hot regions"
+n_runs: 30
+
+# Base already provides:
+#   V=1000, n0=10, T=2000, NK=50000, warmup=40
+#   capacities=[1.0 x3, 0.55 x4, 0.25 x3]
+# Here capacities are interpreted as NVMe / SSD / HDD classes.
+node_classes:
+  - {name: NVMe, count: 3, normalized_capacity: 1.00}
+  - {name: SSD,  count: 4, normalized_capacity: 0.55}
+  - {name: HDD,  count: 3, normalized_capacity: 0.25}
+
+domain:
+  scenario: remote_sensing_tile_store
+  key_format: [satellite, scene_id, tile_xyz]
+  interpretation: "hot keys represent frequently requested geographic regions"
+
+load:
+  type: constant
+  lambda: 1437.5
+
+# Zipf exponent chosen for the DZZ tile-store scenario.
+zipf_s: 0.8
+
+noise:
+  sigma:  0.0
+  lag:    0
+  p_miss: 0.0
