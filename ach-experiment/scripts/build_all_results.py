@@ -26,7 +26,7 @@ from src.effectsize import bootstrap_ci_mean, cliffs_delta
 
 ALGO_ORDER = ["Static-W", "Static-Wt", "HRW", "Dynamic-R", "Bounded-Loads", "CH-BL", "ACH"]
 METRICS    = ["D_mean", "D_max", "M_cum", "pi_chg"]
-SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE"]  # C5 = sensitivity only
+SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "C-DZZ", "TRACE"]  # C5 = sensitivity only
 
 
 def ci95(arr: np.ndarray) -> float:

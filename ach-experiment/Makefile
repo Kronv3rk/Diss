@@ -1,6 +1,6 @@
 .PHONY: setup test lint format typecheck run reproduce tables corrections clean
 
-SERIES := C1 C2 C3 C4a C4b C4c TRACE
+SERIES := C1 C2 C3 C4a C4b C4c C-DZZ TRACE
 
 setup:
 	pip install -e ".[dev]"

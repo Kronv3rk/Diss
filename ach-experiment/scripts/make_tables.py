@@ -14,7 +14,7 @@ SERIES_TITLES = {
     "C4b": "Noise sigma=0.05", "C4c": "Strong noise + lag + missing",
     "TRACE": "Real-corpus popularity replay",
 }
-SERIES = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE"]
+SERIES = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "C-DZZ", "TRACE"]
 
 
 def fmt(x, nd=4):
