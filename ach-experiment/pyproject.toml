@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ach-experiment"
+version = "0.1.0"
+description = "Adaptive Consistent Hashing (ACH): hash-ring load-balancing simulation for the dissertation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=1.24,<3",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov", "ruff>=0.5", "mypy>=1.8"]
+
+[tool.setuptools]
+packages = ["src", "src.algorithms"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+# E741: single-letter set names (O = overloaded, U = underloaded, I = idle) mirror the
+# mathematical notation in the thesis; kept intentionally for cross-reference with the paper.
+ignore = ["E741"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+# Types are not yet fully annotated in the numerical core; tightened over time.
+# CI runs mypy as informational (non-blocking).

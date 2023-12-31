@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ach-proto"
+version = "0.1.0"
+description = "Real consistent-hashing service with bounded-load rebalancing (dissertation prototype)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []                      # stdlib only (hashlib, bisect)
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[tool.setuptools]
+packages = ["ach_proto"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

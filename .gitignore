@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+ach-experiment/results/*
+!ach-experiment/results/all_results.json
+figures/
+*.svg
+*.png
+.coverage
+plots/

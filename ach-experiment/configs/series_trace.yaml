@@ -1,0 +1,19 @@
+# Series TRACE: real measured key-popularity replay (external validity).
+# Popularity is loaded from a real corpus token-frequency trace instead of a
+# synthetic Zipf law — demonstrates the algorithms on non-synthetic skew.
+extends: base
+name: TRACE
+description: "Real-corpus popularity replay (non-synthetic heavy tail)"
+n_runs: 30
+
+load:
+  type: constant
+  lambda: 1437.5
+
+# Replace with a domain trace (Wikipedia/Twitter) via scripts/fetch_real_trace.py
+trace: traces/sample_real.csv
+
+noise:
+  sigma:  0.0
+  lag:    0
+  p_miss: 0.0
