@@ -7,8 +7,8 @@ dist/
 build/
 .venv/
 venv/
-results/*
-!results/all_results.json
+ach-experiment/results/*
+!ach-experiment/results/all_results.json
 figures/
 *.svg
 *.png
