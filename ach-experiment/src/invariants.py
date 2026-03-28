@@ -8,7 +8,8 @@ to detect any corruption in the ring state.
 import numpy as np
 
 
-def check_all(ring, n_nodes: int, v_min: int = 3) -> list:
+def check_all(ring, n_nodes: int, v_min: int = 3,
+              dead_nodes: set = None) -> list:
     """Check all ring invariants.
 
     Invariants checked:
@@ -41,8 +42,11 @@ def check_all(ring, n_nodes: int, v_min: int = 3) -> list:
             f"Inv1: sum(L)={arc_sum:.12f} != 1.0 (diff={arc_sum - 1.0:.3e})"
         )
 
-    # Inv 2: each node has >= v_min tokens
+    # Inv 2: each active (non-dead) node has >= v_min tokens
+    _dead = dead_nodes or set()
     for i in range(n_nodes):
+        if i in _dead:
+            continue
         cnt = ring.node_count(i)
         if cnt < v_min:
             violations.append(
