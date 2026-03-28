@@ -1,0 +1,558 @@
+{
+  "C1": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.22561,
+        "D_std": 0.01493,
+        "D_ci95": 0.00558,
+        "D_max": 0.25075,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.17498,
+        "D_std": 0.03009,
+        "D_ci95": 0.01124,
+        "D_max": 0.23131,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.16623,
+        "D_std": 0.00429,
+        "D_ci95": 0.0016,
+        "D_max": 0.23987,
+        "M_cum": 6.96875,
+        "pi_chg": 0.53232,
+        "n_violations": 0
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.16806,
+        "D_std": 0.01093,
+        "D_ci95": 0.00408,
+        "D_max": 0.24779,
+        "M_cum": 1.43959,
+        "pi_chg": 0.12855,
+        "n_violations": 0
+      },
+      "ACH": {
+        "D_mean": 0.18373,
+        "D_std": 0.01188,
+        "D_ci95": 0.00444,
+        "D_max": 0.2249,
+        "M_cum": 0.00021,
+        "pi_chg": 0.00768,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.0
+  },
+  "C2": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.08724,
+        "D_std": 0.00601,
+        "D_ci95": 0.00224,
+        "D_max": 0.24707,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.06193,
+        "D_std": 0.01076,
+        "D_ci95": 0.00402,
+        "D_max": 0.22694,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.05838,
+        "D_std": 0.00209,
+        "D_ci95": 0.00078,
+        "D_max": 0.23193,
+        "M_cum": 2.39939,
+        "pi_chg": 0.18239,
+        "n_violations": 0
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.05847,
+        "D_std": 0.00554,
+        "D_ci95": 0.00207,
+        "D_max": 0.23925,
+        "M_cum": 0.35348,
+        "pi_chg": 0.03449,
+        "n_violations": 0
+      },
+      "ACH": {
+        "D_mean": 0.0668,
+        "D_std": 0.00383,
+        "D_ci95": 0.00143,
+        "D_max": 0.22203,
+        "M_cum": 0.00013,
+        "pi_chg": 0.00536,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.0
+  },
+  "C3": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.41655,
+        "D_std": 0.02517,
+        "D_ci95": 0.0094,
+        "D_max": 0.5352,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.41189,
+        "D_std": 0.02369,
+        "D_ci95": 0.00884,
+        "D_max": 0.5238,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.20817,
+        "D_std": 0.02936,
+        "D_ci95": 0.01096,
+        "D_max": 0.41585,
+        "M_cum": 4.61756,
+        "pi_chg": 0.64123,
+        "n_violations": 4
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.22362,
+        "D_std": 0.02863,
+        "D_ci95": 0.01069,
+        "D_max": 0.40706,
+        "M_cum": 0.69698,
+        "pi_chg": 0.16645,
+        "n_violations": 38
+      },
+      "ACH": {
+        "D_mean": 0.27296,
+        "D_std": 0.01069,
+        "D_ci95": 0.00399,
+        "D_max": 0.3944,
+        "M_cum": 0.03952,
+        "pi_chg": 0.22138,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.0
+  },
+  "C4": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.5141,
+        "D_std": 0.0679,
+        "D_ci95": 0.02536,
+        "D_max": 0.61508,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.32446,
+        "D_std": 0.03493,
+        "D_ci95": 0.01304,
+        "D_max": 0.38083,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.23195,
+        "D_std": 0.01463,
+        "D_ci95": 0.00546,
+        "D_max": 0.27012,
+        "M_cum": 0.03972,
+        "pi_chg": 0.02783,
+        "n_violations": 94268
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.1629,
+        "D_std": 0.02793,
+        "D_ci95": 0.01043,
+        "D_max": 0.23112,
+        "M_cum": 0.36632,
+        "pi_chg": 0.27688,
+        "n_violations": 47313
+      },
+      "ACH": {
+        "D_mean": 0.53373,
+        "D_std": 0.02426,
+        "D_ci95": 0.00906,
+        "D_max": 0.59285,
+        "M_cum": 0.06799,
+        "pi_chg": 0.16442,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.236652
+  },
+  "C4a": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.22412,
+        "D_std": 0.01476,
+        "D_ci95": 0.00551,
+        "D_max": 0.24926,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.17207,
+        "D_std": 0.02927,
+        "D_ci95": 0.01093,
+        "D_max": 0.22869,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.16273,
+        "D_std": 0.00308,
+        "D_ci95": 0.00115,
+        "D_max": 0.23513,
+        "M_cum": 7.20793,
+        "pi_chg": 0.55036,
+        "n_violations": 0
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.16458,
+        "D_std": 0.00604,
+        "D_ci95": 0.00225,
+        "D_max": 0.24001,
+        "M_cum": 1.56232,
+        "pi_chg": 0.14174,
+        "n_violations": 0
+      },
+      "ACH": {
+        "D_mean": 0.17711,
+        "D_std": 0.01055,
+        "D_ci95": 0.00394,
+        "D_max": 0.2201,
+        "M_cum": 0.00026,
+        "pi_chg": 0.0071,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.0
+  },
+  "C4b": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.222,
+        "D_std": 0.01448,
+        "D_ci95": 0.00541,
+        "D_max": 0.24936,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.16776,
+        "D_std": 0.02778,
+        "D_ci95": 0.01037,
+        "D_max": 0.22678,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.15489,
+        "D_std": 0.00241,
+        "D_ci95": 0.0009,
+        "D_max": 0.23091,
+        "M_cum": 7.51003,
+        "pi_chg": 0.56775,
+        "n_violations": 0
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.15342,
+        "D_std": 0.00818,
+        "D_ci95": 0.00305,
+        "D_max": 0.2342,
+        "M_cum": 1.93789,
+        "pi_chg": 0.1792,
+        "n_violations": 0
+      },
+      "ACH": {
+        "D_mean": 0.16945,
+        "D_std": 0.01537,
+        "D_ci95": 0.00574,
+        "D_max": 0.22111,
+        "M_cum": 0.00068,
+        "pi_chg": 0.01159,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.0
+  },
+  "C4c": {
+    "n_runs": 30,
+    "algorithms": {
+      "Static-W": {
+        "D_mean": 0.49919,
+        "D_std": 0.06156,
+        "D_ci95": 0.02299,
+        "D_max": 0.60217,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Static-Wt": {
+        "D_mean": 0.31641,
+        "D_std": 0.03235,
+        "D_ci95": 0.01208,
+        "D_max": 0.37563,
+        "M_cum": 0.0,
+        "pi_chg": 0.0,
+        "n_violations": 0
+      },
+      "Dynamic-R": {
+        "D_mean": 0.2284,
+        "D_std": 0.01361,
+        "D_ci95": 0.00508,
+        "D_max": 0.27165,
+        "M_cum": 0.03914,
+        "pi_chg": 0.0271,
+        "n_violations": 95079
+      },
+      "Bounded-Loads": {
+        "D_mean": 0.15655,
+        "D_std": 0.02446,
+        "D_ci95": 0.00913,
+        "D_max": 0.23137,
+        "M_cum": 0.39691,
+        "pi_chg": 0.29739,
+        "n_violations": 47441
+      },
+      "ACH": {
+        "D_mean": 0.5193,
+        "D_std": 0.02293,
+        "D_ci95": 0.00856,
+        "D_max": 0.58217,
+        "M_cum": 0.06892,
+        "pi_chg": 0.16457,
+        "n_violations": 0
+      }
+    },
+    "wilcoxon_ACH_vs_StaticW_D_mean": 0.140283
+  },
+  "C5": {
+    "type": "sensitivity",
+    "data": {
+      "eps_on": {
+        "0.05": {
+          "value": 0.05,
+          "D_mean": 0.16944,
+          "D_ci": 0.00214,
+          "M_cum": 0.02454,
+          "M_ci": 0.00236,
+          "pi_chg": 0.25587,
+          "pi_ci": 0.01766,
+          "extra": {
+            "eps_off": 0.02
+          }
+        },
+        "0.08": {
+          "value": 0.08,
+          "D_mean": 0.17814,
+          "D_ci": 0.00718,
+          "M_cum": 0.00063,
+          "M_ci": 0.00031,
+          "pi_chg": 0.01413,
+          "pi_ci": 0.00505,
+          "extra": {
+            "eps_off": 0.032
+          }
+        },
+        "0.1": {
+          "value": 0.1,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311,
+          "extra": {
+            "eps_off": 0.04
+          }
+        },
+        "0.15": {
+          "value": 0.15,
+          "D_mean": 0.20838,
+          "D_ci": 0.00612,
+          "M_cum": 1e-05,
+          "M_ci": 1e-05,
+          "pi_chg": 0.00043,
+          "pi_ci": 0.00085,
+          "extra": {
+            "eps_off": 0.06
+          }
+        },
+        "0.2": {
+          "value": 0.2,
+          "D_mean": 0.20707,
+          "D_ci": 0.00435,
+          "M_cum": 0.0,
+          "M_ci": 0.0,
+          "pi_chg": 0.0,
+          "pi_ci": 0.0,
+          "extra": {
+            "eps_off": 0.08
+          }
+        }
+      },
+      "kappa": {
+        "0.05": {
+          "value": 0.05,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.0003,
+          "M_ci": 0.00012,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.1": {
+          "value": 0.1,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.15": {
+          "value": 0.15,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00023,
+          "M_ci": 9e-05,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.2": {
+          "value": 0.2,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00021,
+          "M_ci": 8e-05,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        }
+      },
+      "tau": {
+        "0.7": {
+          "value": 0.7,
+          "D_mean": 0.22361,
+          "D_ci": 0.00988,
+          "M_cum": 0.0,
+          "M_ci": 0.0,
+          "pi_chg": 0.0,
+          "pi_ci": 0.0
+        },
+        "0.8": {
+          "value": 0.8,
+          "D_mean": 0.22626,
+          "D_ci": 0.00423,
+          "M_cum": 0.0,
+          "M_ci": 0.0,
+          "pi_chg": 0.0,
+          "pi_ci": 0.0
+        },
+        "0.85": {
+          "value": 0.85,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.9": {
+          "value": 0.9,
+          "D_mean": 0.18563,
+          "D_ci": 0.00814,
+          "M_cum": 0.00121,
+          "M_ci": 0.0004,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00318
+        },
+        "0.95": {
+          "value": 0.95,
+          "D_mean": 0.18563,
+          "D_ci": 0.00814,
+          "M_cum": 0.00196,
+          "M_ci": 0.00066,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00318
+        }
+      },
+      "M_max": {
+        "0.005": {
+          "value": 0.005,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.01": {
+          "value": 0.01,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.02": {
+          "value": 0.02,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.05": {
+          "value": 0.05,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        },
+        "0.1": {
+          "value": 0.1,
+          "D_mean": 0.18465,
+          "D_ci": 0.0083,
+          "M_cum": 0.00026,
+          "M_ci": 0.0001,
+          "pi_chg": 0.00935,
+          "pi_ci": 0.00311
+        }
+      }
+    }
+  }
+}
