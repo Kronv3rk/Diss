@@ -178,6 +178,9 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
     telemetries = [Telemetry(n_nodes, tel_params) for _ in range(5)]
     algos = _build_algorithms(cfg, rings[0])
 
+    # Track nodes removed via churn (capacity zeroed, not compacted)
+    dead_nodes: set = set()
+
     # Results containers
     results: Dict[str, Any] = {}
     for algo in algos:
@@ -200,6 +203,7 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
                     if ev["type"] == "remove":
                         node_id = ev["node"]
                         cluster.remove_node(node_id)
+                        dead_nodes.add(node_id)
                         for ring in rings:
                             # Reassign orphaned tokens to node 0
                             orphaned = np.where(ring.a == node_id)[0]
@@ -210,10 +214,26 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
                         cap_class_idx = ev.get("cap_class", 0)
                         cap = CAP_CLASSES[cap_class_idx]
                         new_id = cluster.add_node(cap)
+                        v_min_cfg = int(ach_params.get("v_min", 3))
                         for ring in rings:
                             ring.n_nodes = cluster.n_nodes
                             ring.a = np.where(ring.a >= ring.n_nodes,
                                               ring.a % ring.n_nodes, ring.a)
+                            # Bootstrap: steal v_min tokens from the node
+                            # with the most tokens so the new node is valid
+                            donor = int(np.argmax(
+                                [ring.node_count(i)
+                                 for i in range(ring.n_nodes - 1)]
+                            ))
+                            donor_toks = np.where(ring.a == donor)[0]
+                            if len(donor_toks) > v_min_cfg:
+                                give = donor_toks[:v_min_cfg]
+                                ring.reassign(
+                                    give,
+                                    np.full(len(give), new_id, dtype=np.int32),
+                                )
+                        for tel in telemetries:
+                            tel.resize(cluster.n_nodes)
 
         # Handle degradation events
         if degrade_cfg:
@@ -247,8 +267,9 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
             results[algo.name]["M_trace"].append(M_keys)
             results[algo.name]["ell_trace"].append(ell.copy())
 
-            # Check invariants every step
-            viols = check_all(ring, ring.n_nodes, v_min=int(ach_params.get("v_min", 3)))
+            # Check invariants every step (skip dead/zeroed-out nodes)
+            viols = check_all(ring, ring.n_nodes, v_min=int(ach_params.get("v_min", 3)),
+                              dead_nodes=dead_nodes)
             for v in viols:
                 results[algo.name]["violations"].append(f"t={t}: {v}")
 
@@ -258,7 +279,11 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
         D_arr = np.array(results[name]["D_trace"])
         M_arr = np.array(results[name]["M_trace"])
         results[name]["agg"] = aggregate_metrics(D_arr, M_arr, warmup=warmup)
-        # Convert ell_trace to numpy array for easier downstream use
-        results[name]["ell_trace"] = np.array(results[name]["ell_trace"])
+        # Convert ell_trace to numpy array when shapes are homogeneous
+        # (may be inhomogeneous during node churn)
+        try:
+            results[name]["ell_trace"] = np.array(results[name]["ell_trace"])
+        except ValueError:
+            pass  # keep as list of arrays when n_nodes changes mid-run
 
     return results

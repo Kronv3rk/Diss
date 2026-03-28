@@ -186,22 +186,45 @@ def main():
     parser = argparse.ArgumentParser(
         description="Generate trace plots for ACH experiment series."
     )
-    parser.add_argument("--series",      default="",
-                        help="Series name (e.g. C1) for title and filename.")
-    parser.add_argument("--results-dir", required=True,
-                        help="Directory containing run_*.json files.")
+    parser.add_argument("--series",      nargs="+", default=[],
+                        help="Series names (e.g. C1 C2 C3 C4). "
+                             "If omitted with --results-dir, a single unnamed series is plotted.")
+    parser.add_argument("--results-dir", default=None,
+                        help="Directory containing run_*.json files (single series).")
+    parser.add_argument("--input-dir",   default=None,
+                        help="Root results directory; auto-discovers series subdirectories.")
     parser.add_argument("--output-dir",  default=None,
-                        help="Directory to save SVG plots. "
-                             "Default: <results-dir>/plots/")
+                        help="Directory to save SVG plots. Default: <results-dir>/plots/")
     args = parser.parse_args()
 
-    output_dir = args.output_dir or os.path.join(args.results_dir, "plots")
+    # Determine (results_dir, series_name) pairs to process
+    jobs = []
 
-    runs = _load_results(args.results_dir)
-    print(f"Loaded {len(runs)} runs from {args.results_dir}")
+    if args.input_dir:
+        series_list = args.series if args.series else ["C1", "C2", "C3", "C4", "C5"]
+        root = args.input_dir
+        for s in series_list:
+            d = os.path.join(root, s)
+            if os.path.isdir(d):
+                out = args.output_dir or os.path.join(root, "plots")
+                jobs.append((d, s, out))
+            else:
+                print(f"[SKIP] {s}: directory not found at {d}")
+    elif args.results_dir:
+        s = args.series[0] if args.series else ""
+        out = args.output_dir or os.path.join(args.results_dir, "plots")
+        jobs.append((args.results_dir, s, out))
+    else:
+        parser.error("Provide either --results-dir or --input-dir.")
 
-    plot_D_traces(runs, series=args.series, output_dir=output_dir)
-    plot_M_traces(runs, series=args.series, output_dir=output_dir)
+    for results_dir, series_name, output_dir in jobs:
+        try:
+            runs = _load_results(results_dir)
+            print(f"Loaded {len(runs)} runs from {results_dir}")
+            plot_D_traces(runs, series=series_name, output_dir=output_dir)
+            plot_M_traces(runs, series=series_name, output_dir=output_dir)
+        except FileNotFoundError as e:
+            print(f"[SKIP] {series_name}: {e}")
 
 
 if __name__ == "__main__":

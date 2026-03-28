@@ -9,7 +9,7 @@ T: 500
 
 load:
   type: constant
-  lambda: 1800.0
+  lambda: 1437.5
 
 zipf_s: 1.0    # Zipf exponent (hot-key skew)
 

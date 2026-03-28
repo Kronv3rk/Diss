@@ -9,7 +9,7 @@ T: 500
 
 load:
   type:        step_periodic
-  lambda_low:  1800.0
+  lambda_low:  1437.5
   lambda_high: 3200.0
   step_t:      200       # step-up at t=200
   periodic_t:  350       # periodic modulation starts at t=350

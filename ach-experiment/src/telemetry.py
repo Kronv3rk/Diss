@@ -98,6 +98,25 @@ class Telemetry:
         ell = np.asarray(ell, dtype=np.float64)
         return float(self.alpha * np.mean(ell) + (1.0 - self.alpha) * np.max(ell))
 
+    def resize(self, new_n_nodes: int):
+        """Resize smoothed state when nodes are added or removed.
+
+        New nodes get zero initial smoothed state; removed nodes are dropped.
+
+        Parameters
+        ----------
+        new_n_nodes : int
+            Target number of nodes.
+        """
+        if new_n_nodes == self.n_nodes:
+            return
+        if new_n_nodes > self.n_nodes:
+            extra = np.zeros((new_n_nodes - self.n_nodes, 3), dtype=np.float64)
+            self.smoothed = np.vstack([self.smoothed, extra])
+        else:
+            self.smoothed = self.smoothed[:new_n_nodes]
+        self.n_nodes = new_n_nodes
+
     def reset(self):
         """Reset smoothed state to zeros (useful when nodes change)."""
         self.smoothed = np.zeros((self.n_nodes, 3), dtype=np.float64)
