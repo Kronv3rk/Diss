@@ -1,8 +1,9 @@
 """
-run_sensitivity.py – Execute C5 parameter sensitivity sweep for ACH.
+run_sensitivity.py – C5 parameter sensitivity sweep for ACH.
 
-Sweeps eps_on and kappa independently (one parameter varied, others at default)
-and records D_mean, M_cum, pi_chg for ACH only across n_runs repeats.
+Sweeps eps_on, kappa, tau, M_max independently (one at a time, others at
+their base.yaml defaults). Runs 10 independent seeds per grid point and
+reports mean D_mean, M_cum, pi_chg.
 
 Usage
 -----
@@ -24,136 +25,141 @@ import yaml
 
 from src.experiment import run_experiment
 
+# ---------------------------------------------------------------------------
+# Parameter grids
+# ---------------------------------------------------------------------------
 
-def _load_config(config_dir: str) -> dict:
-    base_path  = os.path.join(config_dir, "base.yaml")
-    c5_path    = os.path.join(config_dir, "series_c5.yaml")
-    with open(base_path) as f:
-        base = yaml.safe_load(f)
-    with open(c5_path) as f:
-        c5 = yaml.safe_load(f)
-    merged = dict(base)
-    for k, v in c5.items():
-        if k != "extends":
-            if isinstance(v, dict) and isinstance(merged.get(k), dict):
-                merged[k] = {**merged[k], **v}
-            else:
-                merged[k] = v
-    return merged
+SWEEPS = [
+    {
+        "param":  "eps_on",
+        "values": [0.05, 0.08, 0.10, 0.15, 0.20],
+        "extra":  lambda v: {"eps_off": round(v * 0.4, 4)},
+    },
+    {
+        "param":  "kappa",
+        "values": [0.05, 0.10, 0.15, 0.20],
+        "extra":  None,
+    },
+    {
+        "param":  "tau",
+        "values": [0.70, 0.80, 0.85, 0.90, 0.95],
+        "extra":  None,
+    },
+    {
+        "param":  "M_max",
+        "values": [0.005, 0.01, 0.02, 0.05, 0.10],
+        "extra":  None,
+    },
+]
 
 
-def _run_grid_point(cfg: dict, param_name: str, param_val: float,
-                    n_runs: int, base_seed: int) -> dict:
-    """Run n_runs with a single ACH parameter overridden. Return aggregate stats."""
-    cfg = copy.deepcopy(cfg)
-    cfg["ach"][param_name] = param_val
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _load_base(config_dir: str) -> dict:
+    with open(os.path.join(config_dir, "base.yaml")) as f:
+        cfg = yaml.safe_load(f)
+    # Force constant load at lambda=1437.5
+    cfg["load"] = {"type": "constant", "lambda": 1437.5}
+    return cfg
+
+
+def _run_point(base_cfg: dict, param: str, value,
+               extra: dict, n_runs: int, base_seed: int) -> dict:
+    """Run n_runs with one ACH parameter overridden. Return mean ± CI stats."""
+    cfg = copy.deepcopy(base_cfg)
+    cfg["ach"][param] = value
+    if extra:
+        cfg["ach"].update(extra)
 
     D_vals, M_vals, pi_vals = [], [], []
     for r in range(n_runs):
-        seed = base_seed + r * 1000
-        results = run_experiment(cfg, seed=seed)
-        agg = results["ACH"]["agg"]
+        res = run_experiment(cfg, seed=base_seed + r * 1000)
+        agg = res["ACH"]["agg"]
         D_vals.append(agg["D_mean"])
         M_vals.append(agg["M_cum"])
         pi_vals.append(agg["pi_chg"])
 
+    n = len(D_vals)
+    ci = lambda a: float(1.96 * np.std(a, ddof=1) / np.sqrt(n)) if n > 1 else 0.0
     return {
-        "D_mean":  float(np.mean(D_vals)),
-        "D_ci":    float(1.96 * np.std(D_vals, ddof=1) / np.sqrt(n_runs)),
-        "M_cum":   float(np.mean(M_vals)),
-        "M_ci":    float(1.96 * np.std(M_vals, ddof=1) / np.sqrt(n_runs)),
-        "pi_chg":  float(np.mean(pi_vals)),
-        "pi_ci":   float(1.96 * np.std(pi_vals, ddof=1) / np.sqrt(n_runs)),
-        "n_runs":  n_runs,
+        "D_mean": round(float(np.mean(D_vals)), 5),
+        "D_ci":   round(ci(D_vals), 5),
+        "M_cum":  round(float(np.mean(M_vals)), 5),
+        "M_ci":   round(ci(M_vals), 5),
+        "pi_chg": round(float(np.mean(pi_vals)), 5),
+        "pi_ci":  round(ci(pi_vals), 5),
     }
 
 
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
 def run_sensitivity(n_runs: int, output_dir: str,
                     config_dir: str, base_seed: int = 42):
-    cfg = _load_config(config_dir)
-    sens = cfg.get("sensitivity", {})
-    eps_on_vals = sens.get("eps_on", [0.05, 0.08, 0.10, 0.15, 0.20])
-    kappa_vals  = sens.get("kappa",  [0.05, 0.10, 0.15, 0.20])
 
+    base_cfg = _load_base(config_dir)
     os.makedirs(output_dir, exist_ok=True)
-    results = {"eps_on": {}, "kappa": {}}
 
-    # --- Sweep eps_on (eps_off = eps_on * 0.4, kappa at default) ---
-    print("Sweeping eps_on  (kappa=default={:.2f}):".format(
-        cfg["ach"].get("kappa", 0.10)))
-    print(f"  {'eps_on':>8}  {'D_mean':>9}  {'M_cum':>9}  {'pi_chg':>9}")
+    all_results = {}
 
-    for eps in eps_on_vals:
-        t0 = time.time()
-        cfg_local = copy.deepcopy(cfg)
-        cfg_local["ach"]["eps_on"]  = eps
-        cfg_local["ach"]["eps_off"] = round(eps * 0.4, 4)
+    for sweep in SWEEPS:
+        param  = sweep["param"]
+        values = sweep["values"]
+        extra_fn = sweep.get("extra")
 
-        D_vals, M_vals, pi_vals = [], [], []
-        for r in range(n_runs):
-            seed = base_seed + r * 1000
-            res = run_experiment(cfg_local, seed=seed)
-            agg = res["ACH"]["agg"]
-            D_vals.append(agg["D_mean"])
-            M_vals.append(agg["M_cum"])
-            pi_vals.append(agg["pi_chg"])
+        print(f"\n{'='*52}")
+        print(f"Sweep: {param}   (n_runs={n_runs} per point)")
+        print(f"  {'Value':>8}  {'D̄':>9}  {'M_cum':>9}  {'π_chg':>9}")
+        print(f"  {'-'*8}  {'-'*9}  {'-'*9}  {'-'*9}")
 
-        row = {
-            "eps_off": round(eps * 0.4, 4),
-            "D_mean":  float(np.mean(D_vals)),
-            "D_ci":    float(1.96 * np.std(D_vals, ddof=1) / np.sqrt(n_runs)),
-            "M_cum":   float(np.mean(M_vals)),
-            "M_ci":    float(1.96 * np.std(M_vals, ddof=1) / np.sqrt(n_runs)),
-            "pi_chg":  float(np.mean(pi_vals)),
-            "pi_ci":   float(1.96 * np.std(pi_vals, ddof=1) / np.sqrt(n_runs)),
-        }
-        results["eps_on"][str(eps)] = row
-        elapsed = time.time() - t0
-        print(f"  {eps:8.2f}  {row['D_mean']:9.4f}  {row['M_cum']:9.4f}"
-              f"  {row['pi_chg']:9.4f}  ({elapsed:.1f}s)")
+        sweep_results = {}
+        for v in values:
+            extra = extra_fn(v) if extra_fn else None
+            t0 = time.time()
+            row = _run_point(base_cfg, param, v, extra, n_runs, base_seed)
+            elapsed = time.time() - t0
 
-    # --- Sweep kappa (eps_on/eps_off at default) ---
-    print("\nSweeping kappa  (eps_on=default={:.2f}):".format(
-        cfg["ach"].get("eps_on", 0.10)))
-    print(f"  {'kappa':>8}  {'D_mean':>9}  {'M_cum':>9}  {'pi_chg':>9}")
+            label = f"{v:.3f}" if isinstance(v, float) else str(v)
+            print(f"  {label:>8}  {row['D_mean']:9.4f}  "
+                  f"{row['M_cum']:9.4f}  {row['pi_chg']:9.4f}  ({elapsed:.1f}s)")
 
-    for kap in kappa_vals:
-        t0 = time.time()
-        row = _run_grid_point(cfg, "kappa", kap, n_runs, base_seed)
-        results["kappa"][str(kap)] = row
-        elapsed = time.time() - t0
-        print(f"  {kap:8.2f}  {row['D_mean']:9.4f}  {row['M_cum']:9.4f}"
-              f"  {row['pi_chg']:9.4f}  ({elapsed:.1f}s)")
+            sweep_results[str(v)] = {"value": v, **row}
+            if extra:
+                sweep_results[str(v)]["extra"] = extra
 
-    # Save results
-    out_path = os.path.join(output_dir, "sensitivity_results.json")
+        all_results[param] = sweep_results
+
+    # Save JSON
+    out_path = os.path.join(output_dir, "sensitivity.json")
     with open(out_path, "w") as f:
-        json.dump(results, f, indent=2)
-    print(f"\nSaved: {out_path}")
+        json.dump(all_results, f, indent=2)
 
-    # Print CI table
-    print("\n--- eps_on sweep (mean ± 95% CI) ---")
-    print(f"  {'eps_on':>6}  {'D_mean':>15}  {'M_cum':>15}  {'pi_chg':>15}")
-    for k, v in results["eps_on"].items():
-        print(f"  {float(k):6.2f}  "
-              f"{v['D_mean']:7.4f}±{v['D_ci']:.4f}  "
-              f"{v['M_cum']:7.4f}±{v['M_ci']:.4f}  "
-              f"{v['pi_chg']:7.4f}±{v['pi_ci']:.4f}")
+    # Final table with CIs
+    print(f"\n{'='*70}")
+    print("SUMMARY  (mean ± 95% CI)")
+    print(f"{'='*70}")
+    for sweep in SWEEPS:
+        param = sweep["param"]
+        print(f"\n  {param}")
+        print(f"  {'Value':>8}  {'D̄ ± CI':>18}  {'M_cum ± CI':>18}  {'π_chg ± CI':>18}")
+        print(f"  {'-'*8}  {'-'*18}  {'-'*18}  {'-'*18}")
+        for v_str, row in all_results[param].items():
+            v_lbl = f"{float(v_str):.3f}"
+            print(f"  {v_lbl:>8}  "
+                  f"{row['D_mean']:7.4f}±{row['D_ci']:.4f}  "
+                  f"  {row['M_cum']:7.4f}±{row['M_ci']:.4f}  "
+                  f"  {row['pi_chg']:7.4f}±{row['pi_ci']:.4f}")
 
-    print("\n--- kappa sweep (mean ± 95% CI) ---")
-    print(f"  {'kappa':>6}  {'D_mean':>15}  {'M_cum':>15}  {'pi_chg':>15}")
-    for k, v in results["kappa"].items():
-        print(f"  {float(k):6.2f}  "
-              f"{v['D_mean']:7.4f}±{v['D_ci']:.4f}  "
-              f"{v['M_cum']:7.4f}±{v['M_ci']:.4f}  "
-              f"{v['pi_chg']:7.4f}±{v['pi_ci']:.4f}")
-
-    return results
+    print(f"\nSaved → {out_path}")
+    return all_results
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run ACH sensitivity sweep (series C5)."
+        description="ACH parameter sensitivity sweep (series C5)."
     )
     parser.add_argument("--n-runs",     type=int, default=10)
     parser.add_argument("--output-dir", default=None)
