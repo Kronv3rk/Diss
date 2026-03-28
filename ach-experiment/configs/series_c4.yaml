@@ -9,7 +9,7 @@ T: 500
 
 load:
   type: constant
-  lambda: 1800.0
+  lambda: 1437.5
 
 # Telemetry corruption: Gaussian noise + 2-step lag + 10% missing data
 noise:

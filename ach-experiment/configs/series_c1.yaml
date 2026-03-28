@@ -9,7 +9,7 @@ T: 500
 
 load:
   type: constant
-  lambda: 1800.0
+  lambda: 1437.5
 
 noise:
   sigma:  0.0

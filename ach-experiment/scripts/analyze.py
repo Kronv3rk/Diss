@@ -158,12 +158,27 @@ def main():
         description="Analyze ACH experiment results."
     )
     parser.add_argument("--series",      default="",
-                        help="Series name (for display).")
-    parser.add_argument("--results-dir", required=True,
-                        help="Directory with run_*.json files.")
+                        help="Series name (for display). Ignored when --input-dir is used.")
+    parser.add_argument("--results-dir", default=None,
+                        help="Directory with run_*.json files for a single series.")
+    parser.add_argument("--input-dir",   default=None,
+                        help="Root results directory; auto-discovers C1..C5 subdirectories.")
     args = parser.parse_args()
 
-    analyze(results_dir=args.results_dir, series=args.series)
+    if args.input_dir:
+        # Auto-discover series subdirectories
+        root = args.input_dir
+        for series_name in ["C1", "C2", "C3", "C4", "C5"]:
+            series_dir = os.path.join(root, series_name)
+            if os.path.isdir(series_dir):
+                try:
+                    analyze(results_dir=series_dir, series=series_name)
+                except FileNotFoundError as e:
+                    print(f"[SKIP] {series_name}: {e}")
+    elif args.results_dir:
+        analyze(results_dir=args.results_dir, series=args.series)
+    else:
+        parser.error("Provide either --results-dir or --input-dir.")
 
 
 if __name__ == "__main__":

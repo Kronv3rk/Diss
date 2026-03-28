@@ -9,7 +9,7 @@ T: 500
 
 load:
   type: constant
-  lambda: 1800.0
+  lambda: 1437.5
 
 # Grid of hyperparameter values to sweep
 sensitivity:
