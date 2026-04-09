@@ -5,7 +5,7 @@ extends: base
 name: C5
 description: "Parameter sensitivity"
 n_runs: 10
-T: 500
+# T inherited from base (2000)
 
 load:
   type: constant

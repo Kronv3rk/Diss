@@ -73,7 +73,7 @@ def aggregate_metrics(D_trace: np.ndarray, M_trace: np.ndarray,
         D_max    : float  worst-case imbalance after warmup
         M_cum    : float  cumulative key churn after warmup
         pi_chg   : float  fraction of steps with M_keys > 0
-        ell_max  : float  mean of D_trace (proxy for peak load)
+        ell_max  : float  mean of max(ell) per step (peak-load proxy)
     """
     D_trace = np.asarray(D_trace, dtype=np.float64)
     M_trace = np.asarray(M_trace, dtype=np.float64)
@@ -85,7 +85,8 @@ def aggregate_metrics(D_trace: np.ndarray, M_trace: np.ndarray,
     D_max  = float(np.max(D_post))  if len(D_post) > 0 else 0.0
     M_cum  = float(np.sum(M_post))
     pi_chg = float(np.mean(M_post > 0.0)) if len(M_post) > 0 else 0.0
-    ell_max = float(np.mean(D_trace[warmup:])) if len(D_post) > 0 else 0.0
+    # ell_max was previously duplicating D_mean; corrected to D_max (true worst-case)
+    ell_max = D_max
 
     return {
         "D_mean":  D_mean,

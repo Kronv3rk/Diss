@@ -5,7 +5,7 @@ extends: base
 name: C1
 description: "Stationary load"
 n_runs: 30
-T: 500
+# T inherited from base (2000)
 
 load:
   type: constant

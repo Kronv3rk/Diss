@@ -34,10 +34,11 @@ class DynamicR:
     name = "Dynamic-R"
 
     def __init__(self, ell_star: float = 0.65, threshold: float = 0.03,
-                 rate: float = 0.05):
+                 rate: float = 0.05, v_min: int = 3):
         self.ell_star = float(ell_star)
         self.threshold = float(threshold)
         self.rate = float(rate)
+        self.v_min = int(v_min)
 
     # ------------------------------------------------------------------
     # Public interface
@@ -101,8 +102,8 @@ class DynamicR:
             for tok, arc in zip(src_tokens_sorted, arcs_sorted):
                 if cumulative >= arc_to_give:
                     break
-                # Ensure src keeps at least 1 token (minimal safety guard)
-                if len(src_tokens) - len(selected) <= 1:
+                # Enforce v_min: same constraint as ACH for fair comparison
+                if len(src_tokens) - len(selected) <= self.v_min:
                     break
                 selected.append(tok)
                 cumulative += arc

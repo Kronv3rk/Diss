@@ -3,7 +3,7 @@ extends: base
 name: C4c
 description: "Strong noise + lag + missing data"
 n_runs: 30
-T: 500
+# T inherited from base (2000)
 
 load:
   type: constant

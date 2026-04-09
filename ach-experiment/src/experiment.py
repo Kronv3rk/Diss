@@ -52,6 +52,7 @@ def _build_algorithms(cfg: dict, ring_snapshot: HashRing) -> list:
             ell_star=float(ach_params.get("ell_star", 0.65)),
             threshold=0.03,
             rate=0.05,
+            v_min=int(ach_params.get("v_min", 3)),
         ),
         BoundedLoads(
             ell_star=float(ach_params.get("ell_star", 0.65)),
