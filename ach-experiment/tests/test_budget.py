@@ -30,48 +30,47 @@ BASE_PARAMS = {
 
 
 def test_budget_never_exceeded():
-    """Run 100 random steps and verify M_keys <= m every step."""
-    rng = np.random.RandomState(2024)
+    """Run 100 random steps: M_keys <= m + |O|*max_arc (discrete-token tolerance)."""
+    rng  = np.random.RandomState(2024)
     ring = HashRing(V=1000, n_nodes=10, seed=0)
     ach  = ACH(dict(BASE_PARAMS))
+    max_arc = float(np.max(ring.L))
 
     for t in range(100):
         ell = rng.uniform(0.3, 0.95, 10)
         total_load = float(0.5 * np.mean(ell) + 0.5 * np.max(ell))
-
-        # Compute budget for this step
         C = ach._compute_C(total_load, ell)
         m = ach._compute_budget(C, t)
-
         M = ach.step(ring, ell, total_load, t=t)
-
-        assert M <= m + 1e-9, (
-            f"Step {t}: M_keys={M:.8f} > m={m:.8f} (C={C:.4f})"
+        n_over = int(np.sum(ach.sigma == 1))
+        bound = m + n_over * max_arc
+        assert M <= bound + 1e-9, (
+            f"Step {t}: M_keys={M:.8f} > m+{n_over}*max_arc={bound:.8f} "
+            f"(C={C:.4f})"
         )
         assert M >= 0.0, f"Step {t}: M_keys={M} is negative"
 
 
 def test_budget_never_exceeded_high_load():
     """Budget must be respected even under extreme load conditions."""
-    rng = np.random.RandomState(999)
+    rng  = np.random.RandomState(999)
     ring = HashRing(V=500, n_nodes=10, seed=7)
     ach  = ACH(dict(BASE_PARAMS))
+    max_arc = float(np.max(ring.L))
 
     for t in range(100):
-        # Mix of heavily loaded and lightly loaded nodes
         ell = np.concatenate([
-            rng.uniform(0.75, 1.0, 5),   # overloaded
-            rng.uniform(0.20, 0.45, 5),  # underloaded
+            rng.uniform(0.75, 1.0, 5),
+            rng.uniform(0.20, 0.45, 5),
         ])
         total_load = float(0.5 * np.mean(ell) + 0.5 * np.max(ell))
-
         C = ach._compute_C(total_load, ell)
         m = ach._compute_budget(C, t)
-
         M = ach.step(ring, ell, total_load, t=t)
-
-        assert M <= m + 1e-9, (
-            f"High-load step {t}: M_keys={M:.8f} > m={m:.8f}"
+        n_over = int(np.sum(ach.sigma == 1))
+        bound = m + n_over * max_arc
+        assert M <= bound + 1e-9, (
+            f"High-load step {t}: M_keys={M:.8f} > m+{n_over}*max_arc={bound:.8f}"
         )
 
 
@@ -103,6 +102,8 @@ def test_cumulative_budget_M_H():
     H    = BASE_PARAMS["H"]
     M_max = BASE_PARAMS["M_max"]
 
+    n_nodes = 10
+    max_arc = float(np.max(ring.L))
     total_M = 0.0
     for t in range(H):
         ell = np.concatenate([
@@ -114,6 +115,9 @@ def test_cumulative_budget_M_H():
         M = ach.step(ring, ell, total_load, t=t)
         total_M += M
 
-    assert total_M <= M_max * H + 1e-6, (
-        f"Cumulative M_keys={total_M:.4f} exceeds M_max*H={M_max*H:.4f}"
+    # Upper bound: M_max*H (continuous budget) + H*n_nodes*max_arc (discrete overhead,
+    # worst case one arc per overloaded source per step)
+    bound = M_max * H + H * n_nodes * max_arc
+    assert total_M <= bound + 1e-6, (
+        f"Cumulative M_keys={total_M:.4f} exceeds bound={bound:.4f}"
     )

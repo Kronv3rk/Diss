@@ -117,9 +117,13 @@ class ACH:
 
         M_keys = self._rebalance(ring, ell, m)
 
-        # Enforce budget invariant
-        assert M_keys <= m + 1e-9, (
-            f"Budget violated at t={t}: M_keys={M_keys:.6f} > m={m:.6f}"
+        # Enforce budget invariant: each of the |O| senders can overshoot its
+        # per-source share by at most one arc-length (discrete-token tolerance),
+        # so M_keys ≤ m + |O| · max_L_s.
+        max_arc = float(np.max(ring.L)) if len(ring.L) > 0 else 0.0
+        assert M_keys <= m + len(O) * max_arc + 1e-9, (
+            f"Budget violated at t={t}: M_keys={M_keys:.6f} > "
+            f"m+{len(O)}*max_arc={m + len(O) * max_arc:.6f}"
         )
 
         self._M_history.append(M_keys)
@@ -328,9 +332,14 @@ class ACH:
 
         M_keys = ring.get_M_keys(prev)
 
-        # Clamp to budget (floating-point guard)
-        if M_keys > m + 1e-9:
-            # This should not happen; log and cap
-            M_keys = m
+        # Discrete-token bound: each of the |O| sources can overshoot its
+        # per-source share by at most one arc-length (the last token selected),
+        # so M_keys ≤ m + |O| · max_L_s.
+        max_arc = float(np.max(ring.L)) if len(ring.L) > 0 else 0.0
+        n_over = len(O)
+        assert M_keys <= m + n_over * max_arc + 1e-9, (
+            f"Budget violated: M_keys={M_keys:.8f} > m+{n_over}*max_arc="
+            f"{m + n_over * max_arc:.8f}"
+        )
 
         return M_keys

@@ -163,12 +163,19 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
     # --- Build shared infrastructure ---
     cluster = Cluster(capacities=caps, mu_base=mu_base)
     gen = LoadGenerator(NK=NK, zipf_s=zipf_s, seed=seed)
-    noise = NoiseModel(
-        sigma_noise=float(noise_cfg.get("sigma", 0.0)),
-        lag=int(noise_cfg.get("lag", 0)),
-        p_miss=float(noise_cfg.get("p_miss", 0.0)),
-        seed=seed + 1,
-    )
+
+    _sigma_noise = float(noise_cfg.get("sigma", 0.0))
+    _p_miss      = float(noise_cfg.get("p_miss", 0.0))
+    _lag         = int(noise_cfg.get("lag", 0))
+
+    # One NoiseModel per algorithm so lag buffers are independent,
+    # but Gaussian delta and missing mask are generated ONCE per step
+    # (see К2 fix) and shared across all algorithms via apply() arguments.
+    noises = [
+        NoiseModel(sigma_noise=_sigma_noise, lag=_lag,
+                   p_miss=_p_miss, seed=seed + 1 + i)
+        for i in range(5)
+    ]
 
     # Pre-generate load sequence (all algorithms use the same)
     load_seq = _make_load_sequence(cfg, rng, gen)
@@ -242,18 +249,25 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
                 for node_str, factor in degrade_cfg.get("nodes", {}).items():
                     cluster.degrade_node(int(node_str), float(factor))
 
-        # Generate telemetry from the first ring (A0) as ground truth
-        # then apply noise model — all algorithms receive the same noisy obs
-        raw_telem, _ = cluster.simulate_load(rings[0], key_hashes, write_flags)
-        noisy_telem = noise.apply(raw_telem, rng)
+        # --- К2 fix: generate noise perturbation ONCE per step ---
+        # All algorithms receive the same Gaussian delta and missing-data mask
+        # applied to their own ring's raw telemetry. This makes the noise
+        # realization identical across algorithms, keeping the paired
+        # Wilcoxon test valid.
+        _cur_nodes = cluster.n_nodes
+        _noise_shape = (_cur_nodes, 3)
+        gauss_delta = (rng.normal(0.0, _sigma_noise, _noise_shape)
+                       if _sigma_noise > 0.0 else None)
+        miss_mask   = (rng.random_sample(_noise_shape) < _p_miss
+                       if _p_miss > 0.0 else None)
 
-        for algo_idx, (algo, ring, tel) in enumerate(
-                zip(algos, rings, telemetries)):
+        for algo_idx, (algo, ring, tel, noise_mdl) in enumerate(
+                zip(algos, rings, telemetries, noises)):
 
-            # Use noisy telemetry for this algorithm's ring (simulate routing
-            # from the real ring state, not just ring[0])
             raw_i, _ = cluster.simulate_load(ring, key_hashes, write_flags)
-            noisy_i = noise.apply(raw_i, rng) if algo_idx > 0 else noisy_telem
+            noisy_i = noise_mdl.apply(raw_i,
+                                      gauss_delta=gauss_delta,
+                                      miss_mask=miss_mask)
 
             tel.update(noisy_i)
             ell = tel.compute_ell()
