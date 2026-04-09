@@ -203,6 +203,11 @@ class ACH:
 
         m(t) = min(M_max, M_H / H) * C
 
+        Additionally enforces the rolling H-step window budget: if the sum of
+        M_keys over the last H steps already equals or exceeds M_H, the budget
+        is clamped to 0 for this step.  This prevents cumulative over-movement
+        under noisy or adversarial telemetry.
+
         Parameters
         ----------
         C : float
@@ -216,7 +221,15 @@ class ACH:
             Arc budget for this step.
         """
         base = min(self.M_max, self.M_H / max(self.H, 1))
-        return base * C
+        m = base * C
+
+        # Rolling H-window: pause if the last H steps already exhausted M_H
+        if len(self._M_history) >= self.H:
+            window_sum = float(sum(self._M_history[-self.H:]))
+            if window_sum >= self.M_H - 1e-9:
+                return 0.0
+
+        return m
 
     def _rebalance(self, ring, ell: np.ndarray, m: float) -> float:
         """Three-phase token redistribution.

@@ -166,11 +166,13 @@ def main():
     args = parser.parse_args()
 
     if args.input_dir:
-        # Auto-discover series subdirectories
+        # Auto-discover all C* series subdirectories
+        import glob as _glob
         root = args.input_dir
-        for series_name in ["C1", "C2", "C3", "C4", "C5"]:
-            series_dir = os.path.join(root, series_name)
+        series_dirs = sorted(_glob.glob(os.path.join(root, "C*")))
+        for series_dir in series_dirs:
             if os.path.isdir(series_dir):
+                series_name = os.path.basename(series_dir)
                 try:
                     analyze(results_dir=series_dir, series=series_name)
                 except FileNotFoundError as e:
