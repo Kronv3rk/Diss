@@ -4,7 +4,7 @@
 # Cluster parameters (Table 3.1)
 V: 1000          # virtual tokens
 n0: 10           # initial nodes
-T: 500           # time steps
+T: 2000          # time steps (ACH needs ~700 steps to converge; 2000 captures steady-state)
 NK: 50000        # key universe
 
 # Capacity classes: 3 strong + 4 medium + 3 weak = 10 nodes
@@ -12,7 +12,7 @@ capacities: [1.0, 1.0, 1.0, 0.55, 0.55, 0.55, 0.55, 0.25, 0.25, 0.25]
 mu_base: 350.0   # requests/step at cap=1.0
 
 # Warmup period (steps excluded from aggregate metrics)
-warmup: 40
+warmup: 40       # exclude first 40 steps (EWMA startup transient); ACH convergence is part of the measurement
 
 # ACH parameters (Table 3.2)
 ach:

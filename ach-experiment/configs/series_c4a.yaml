@@ -3,7 +3,7 @@ extends: base
 name: C4a
 description: "Weak Gaussian noise"
 n_runs: 30
-T: 500
+# T inherited from base (2000)
 
 load:
   type: constant

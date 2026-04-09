@@ -5,7 +5,7 @@ extends: base
 name: C2
 description: "Step load + periodic + degradation"
 n_runs: 30
-T: 500
+# T inherited from base (2000); events scaled to occur early so algorithms have time to adapt
 
 load:
   type:        step_periodic
