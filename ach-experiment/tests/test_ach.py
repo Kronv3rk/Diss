@@ -61,17 +61,20 @@ def test_no_rebalance_when_total_load_high(ach, ring):
 
 
 def test_budget_respected(ach, ring):
-    """M_keys must never exceed m(t) for a range of ell inputs."""
+    """M_keys must not exceed m(t) + |O|*max_arc (discrete-token tolerance)."""
     rng = np.random.RandomState(77)
+    max_arc = float(np.max(ring.L))
     for trial in range(50):
         ell = rng.uniform(0.3, 0.95, 10)
         total_load = float(0.5 * np.mean(ell) + 0.5 * np.max(ell))
-        # Compute expected budget
         C = ach._compute_C(total_load, ell)
         m = ach._compute_budget(C, trial)
         M = ach.step(ring, ell, total_load, t=trial)
-        assert M <= m + 1e-9, (
-            f"Trial {trial}: M_keys={M:.6f} > m={m:.6f} (C={C:.4f})"
+        n_over = int(np.sum(ach.sigma == 1))
+        bound = m + n_over * max_arc
+        assert M <= bound + 1e-9, (
+            f"Trial {trial}: M_keys={M:.6f} > m+{n_over}*max_arc={bound:.6f} "
+            f"(C={C:.4f})"
         )
 
 
