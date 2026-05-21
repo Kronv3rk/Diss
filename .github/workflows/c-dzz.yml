@@ -11,6 +11,18 @@ on:
         description: "Base random seed"
         required: true
         default: "42"
+  push:
+    branches:
+      - codex-c-dzz-run
+    paths:
+      - ".github/workflows/c-dzz.yml"
+      - "ach-experiment/configs/series_c-dzz.yaml"
+      - "ach-experiment/scripts/build_all_results.py"
+      - "ach-experiment/src/**"
+      - "ach-experiment/scripts/**"
+      - "ach-experiment/configs/**"
+      - "ach-experiment/tests/**"
+      - "ach-experiment/requirements.txt"
 
 jobs:
   run-c-dzz:
@@ -20,6 +32,10 @@ jobs:
     defaults:
       run:
         working-directory: ach-experiment
+
+    env:
+      N_RUNS: ${{ github.event.inputs.n_runs || '30' }}
+      BASE_SEED: ${{ github.event.inputs.base_seed || '42' }}
 
     steps:
       - name: Checkout
@@ -44,8 +60,8 @@ jobs:
         run: |
           python scripts/run_series.py \
             --series C-DZZ \
-            --n-runs "${{ inputs.n_runs }}" \
-            --base-seed "${{ inputs.base_seed }}" \
+            --n-runs "$N_RUNS" \
+            --base-seed "$BASE_SEED" \
             --output-dir results-c-dzz/C-DZZ
 
       - name: Build aggregate results
