@@ -1,0 +1,58 @@
+name: C-DZZ experiment
+
+on:
+  workflow_dispatch:
+    inputs:
+      n_runs:
+        description: "Number of independent runs"
+        required: true
+        default: "30"
+      base_seed:
+        description: "Base random seed"
+        required: true
+        default: "42"
+
+jobs:
+  run-c-dzz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    defaults:
+      run:
+        working-directory: ach-experiment
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ach-experiment/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Run C-DZZ series
+        run: |
+          python scripts/run_series.py \
+            --series C-DZZ \
+            --n-runs "${{ inputs.n_runs }}" \
+            --base-seed "${{ inputs.base_seed }}" \
+            --output-dir results-c-dzz/C-DZZ
+
+      - name: Build aggregate results
+        run: python scripts/build_all_results.py --results-dir results-c-dzz
+
+      - name: Upload C-DZZ artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: c-dzz-results
+          path: ach-experiment/results-c-dzz
