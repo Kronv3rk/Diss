@@ -24,7 +24,7 @@ from scipy import stats
 
 ALGO_ORDER = ["Static-W", "Static-Wt", "Dynamic-R", "Bounded-Loads", "ACH"]
 METRICS    = ["D_mean", "D_max", "M_cum", "pi_chg"]
-SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c"]  # C5 = sensitivity only
+SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "C-DZZ"]  # C5 = sensitivity only
 
 
 def ci95(arr: np.ndarray) -> float:
