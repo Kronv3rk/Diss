@@ -36,7 +36,6 @@ from src.plotstyle import (
     labels,
     line_style,
     present_algorithms,
-    series_titles,
     set_style,
 )
 
@@ -84,17 +83,6 @@ def _gather_traces(runs: list, algo: str, key: str, warmup: int = 0) -> np.ndarr
     return np.vstack([t[warmup:min_len] for t in traces])
 
 
-def _title(series: str, what: str, lang: str) -> str:
-    """Figure title: series name, its scenario, and what is plotted."""
-    scenario = series_titles(lang).get(series, "")
-    head = f"Серия {series}" if lang == "ru" else f"Series {series}"
-    if series and scenario:
-        head = f"{head}: {scenario}"
-    elif not series:
-        head = ""
-    return f"{head}. {what}" if head else what
-
-
 def plot_D_traces(runs: list, series: str, output_dir: str, lang: str = "en",
                   fmt: str = "svg", warmup: int = 0):
     """Plot D(t) median + IQR bands for all algorithms present in the runs.
@@ -131,10 +119,10 @@ def plot_D_traces(runs: list, series: str, output_dir: str, lang: str = "en",
                         linewidth=0)
         data_top = max(data_top, float(np.max(q75)))
 
-    ax.set_xlabel("Шаг времени $t$" if lang == "ru" else "Time step $t$")
-    ax.set_ylabel("$D(t)$")
-    ax.set_title(_title(series, "Разбаланс нагрузки $D(t)$" if lang == "ru"
-                                else "Load imbalance $D(t)$", lang))
+    ax.set_xlabel("Шаг управления $t$" if lang == "ru" else "Control step $t$")
+    ax.set_ylabel("Дисбаланс нагрузки $D(t)$" if lang == "ru"
+                  else "Load imbalance $D(t)$")
+    # No in-figure title: the caption belongs in the thesis text.
     ax.legend(loc="upper right", framealpha=0.9, ncol=2)
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.2f"))
     ax.grid(True, linestyle=":", alpha=0.4, linewidth=0.6)
@@ -185,11 +173,9 @@ def plot_M_traces(runs: list, series: str, output_dir: str, lang: str = "en",
         print(f"[SKIP] {series}: no algorithm moves keys, M plot omitted")
         return
 
-    ax.set_xlabel("Шаг времени $t$" if lang == "ru" else "Time step $t$")
+    ax.set_xlabel("Шаг управления $t$" if lang == "ru" else "Control step $t$")
     ax.set_ylabel("$M_{\\rm keys}(t)$")
-    ax.set_title(_title(series,
-                        "Миграция ключей $M_{\\rm keys}(t)$" if lang == "ru"
-                        else "Key churn $M_{\\rm keys}(t)$", lang))
+    # No in-figure title: the caption belongs in the thesis text.
     ax.legend(loc="upper right", framealpha=0.9, ncol=2)
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.4f"))
     ax.grid(True, linestyle=":", alpha=0.4, linewidth=0.6)
