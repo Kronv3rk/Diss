@@ -38,7 +38,6 @@ from src.plotstyle import (
     ALGO_ORDER,
     SERIES,
     labels,
-    series_titles,
     set_style,
     style_for,
 )
@@ -138,22 +137,15 @@ def plot_series_metric(series_data: dict, series: str, metric: str,
         print(f"[SKIP] {series}: {metric} is zero for every algorithm")
         return
 
-    scenario = series_titles(lang).get(series, "")
-    head = (f"Серия {series}" if lang == "ru" else f"Series {series}")
-    if scenario:
-        head = f"{head}: {scenario}"
-
     if metric == "D_mean":
-        ylab = "Средний разбаланс $\\bar{D}$" if lang == "ru" else "Mean imbalance $\\bar{D}$"
-        what = ("Разбаланс нагрузки (ниже — лучше)" if lang == "ru"
-                else "Load imbalance (lower is better)")
+        ylab = ("Средний дисбаланс $\\bar{D}$" if lang == "ru"
+                else "Mean imbalance $\\bar{D}$")
     else:
-        ylab = "$M_{\\rm cum}$"
-        what = ("Суммарная миграция ключей (ниже — лучше)" if lang == "ru"
-                else "Cumulative key migration (lower is better)")
+        ylab = ("Накопленная стоимость перестройки" if lang == "ru"
+                else "Cumulative rebuild cost")
 
     ax.set_ylabel(ylab)
-    ax.set_title(f"{head}. {what}")
+    # No in-figure title: the caption belongs in the thesis text.
     n_runs = series_data.get("n_runs")
     note = None
     if n_runs:
@@ -192,6 +184,8 @@ def plot_overview(results: dict, series_list: list, output_dir: str, lang: str,
     for idx, series in enumerate(panels):
         ax = axes[idx // ncols][idx % ncols]
         _draw_bars(ax, results[series], "D_mean", lang, 3, tick_labels=False)
+        # Panel identifier, not a figure caption: without it the small
+        # multiples cannot be told apart.
         ax.set_title(series)
         if idx % ncols == 0:
             ax.set_ylabel("$\\bar{D}$")
@@ -210,10 +204,8 @@ def plot_overview(results: dict, series_list: list, output_dir: str, lang: str,
                loc="lower center", ncol=min(len(ALGO_ORDER), 4),
                frameon=False, bbox_to_anchor=(0.5, -0.02))
 
-    title = ("Средний разбаланс $\\bar{D}$ по сериям (ниже — лучше)" if lang == "ru"
-             else "Mean imbalance $\\bar{D}$ by series (lower is better)")
-    fig.suptitle(title, y=1.0)
-    fig.tight_layout(rect=(0, 0.06, 1, 0.99))
+    # No figure-level title: the caption belongs in the thesis text.
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
 
     os.makedirs(output_dir, exist_ok=True)
     out_path = os.path.join(output_dir, f"D_bars_overview.{fmt}")
