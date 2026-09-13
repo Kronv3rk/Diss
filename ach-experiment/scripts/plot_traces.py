@@ -1,8 +1,9 @@
 """
 plot_traces.py – Generate matplotlib trace plots for each experiment series.
 
-Produces D(t) traces with median and inter-quartile bands for each algorithm.
-Saves plots as SVG files.
+Two figures per series, each a median with an inter-quartile band across runs:
+  * D_traces_<series>     – load imbalance D(t)
+  * Mcum_traces_<series>  – cumulative rebuild cost, sum of M_keys, on a log axis
 
 Algorithm order, colours and dash patterns come from src.plotstyle, shared with
 plot_series_bars.py.
@@ -139,53 +140,77 @@ def plot_D_traces(runs: list, series: str, output_dir: str, lang: str = "en",
     print(f"Saved: {out_path}")
 
 
-def plot_M_traces(runs: list, series: str, output_dir: str, lang: str = "en",
-                  fmt: str = "svg", warmup: int = 0):
-    """Plot M_keys(t) median + upper-quartile bands for key-moving algorithms.
+def plot_Mcum_traces(runs: list, series: str, output_dir: str, lang: str = "en",
+                     fmt: str = "svg", warmup: int = 0):
+    """Plot the cumulative rebuild cost, sum of M_keys, on a log axis.
 
-    Which algorithms those are is read off the data (any algorithm whose
-    M_trace is not identically zero), not from a hardcoded list.
+    The per-step M_keys(t) is impulsive and sparse - it is exactly zero on most
+    steps, and one baseline outspends the rest by two orders of magnitude - so a
+    linear per-step trace shows one curve and flattens the others onto the axis.
+    The running sum is monotone, separates the algorithms across those orders,
+    and its final value is exactly the M_cum reported in the tables: both are
+    the sum of M_keys over the post-warmup window.
+
+    A log axis cannot render zero, so algorithms that never rebuild are left out
+    of the plot and named in a note underneath instead.
     """
     set_style()
     label = labels(lang)
     fig, ax = plt.subplots(figsize=(8, 4.5))
-    data_top = 0.0
 
+    zero_cost = []
     plotted = 0
     for algo in present_algorithms(runs):
         mat = _gather_traces(runs, algo, "M_trace", warmup)
-        if mat.shape[0] == 0 or not np.any(mat > 0):
-            continue  # stateless algorithms never move keys
+        if mat.shape[0] == 0:
+            continue
+        if not np.any(mat > 0):
+            zero_cost.append(label.get(algo, algo))
+            continue
 
-        t_axis = np.arange(warmup, warmup + mat.shape[1])
-        med = np.median(mat, axis=0)
-        q75 = np.percentile(mat, 75, axis=0)
+        # Accumulate within each run, then take the spread across runs.
+        cum = np.cumsum(mat, axis=1)
+        t_axis = np.arange(warmup, warmup + cum.shape[1])
+        med = np.median(cum, axis=0)
+        q25 = np.percentile(cum, 25, axis=0)
+        q75 = np.percentile(cum, 75, axis=0)
 
         style = line_style(algo)
         ax.plot(t_axis, med, label=label.get(algo, algo), **style)
-        ax.fill_between(t_axis, 0, q75, color=style["color"], alpha=0.10,
+        ax.fill_between(t_axis, q25, q75, color=style["color"], alpha=0.12,
                         linewidth=0)
-        data_top = max(data_top, float(np.max(q75)))
         plotted += 1
 
     if plotted == 0:
         plt.close(fig)
-        print(f"[SKIP] {series}: no algorithm moves keys, M plot omitted")
+        print(f"[SKIP] {series}: no algorithm rebuilds, cumulative cost plot omitted")
         return
 
+    ax.set_yscale("log")
     ax.set_xlabel("Шаг управления $t$" if lang == "ru" else "Control step $t$")
-    ax.set_ylabel("$M_{\\rm keys}(t)$")
+    ax.set_ylabel("Накопленная стоимость перестройки $\\sum M_{\\rm keys}$"
+                  if lang == "ru"
+                  else "Cumulative rebuild cost $\\sum M_{\\rm keys}$")
     # No in-figure title: the caption belongs in the thesis text.
-    ax.legend(loc="upper right", framealpha=0.9, ncol=2)
-    ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.4f"))
-    ax.grid(True, linestyle=":", alpha=0.4, linewidth=0.6)
+    ax.legend(loc="lower right", framealpha=0.9, ncol=2)
+    ax.grid(True, which="both", linestyle=":", alpha=0.4, linewidth=0.6)
     ax.set_axisbelow(True)
     ax.set_xlim(warmup, None)
-    ax.set_ylim(0, data_top * 1.34 if data_top > 0 else None)
 
-    fig.tight_layout()
+    note = None
+    if zero_cost:
+        names = ", ".join(zero_cost[:-1]) + (" и " if lang == "ru" else " and ") + zero_cost[-1] \
+            if len(zero_cost) > 1 else zero_cost[0]
+        note = (f"{names} перестройку не выполняют, их стоимость равна нулю по построению"
+                if lang == "ru"
+                else f"{names} never rebuild; their cost is zero by construction")
+
+    fig.tight_layout(rect=(0, 0.06, 1, 1) if note else None)
+    if note:
+        fig.text(0.01, 0.012, note, ha="left", va="bottom",
+                 fontsize=plt.rcParams["font.size"] - 3.5, color="#6b6b6b")
     os.makedirs(output_dir, exist_ok=True)
-    out_path = os.path.join(output_dir, f"M_traces_{series}.{fmt}")
+    out_path = os.path.join(output_dir, f"Mcum_traces_{series}.{fmt}")
     fig.savefig(out_path, format=fmt, bbox_inches="tight")
     plt.close(fig)
     print(f"Saved: {out_path}")
@@ -243,7 +268,7 @@ def main():
             print(f"Loaded {len(runs)} runs from {results_dir}")
             plot_D_traces(runs, series=series_name, output_dir=output_dir, lang=args.labels,
                           fmt=args.format, warmup=warmup)
-            plot_M_traces(runs, series=series_name, output_dir=output_dir, lang=args.labels,
+            plot_Mcum_traces(runs, series=series_name, output_dir=output_dir, lang=args.labels,
                           fmt=args.format, warmup=warmup)
         except FileNotFoundError as e:
             print(f"[SKIP] {series_name}: {e}")
