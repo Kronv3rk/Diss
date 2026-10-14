@@ -1,0 +1,16 @@
+# Series C4d2: isolated telemetry lag d = 2 steps (no noise, no missing values).
+# Supplementary series: the boundary on the telemetry delay is measured
+# separately from noise and missing values (in C4c all three act together).
+extends: base
+name: C4d2
+description: "Stationary load, telemetry lag d=2"
+n_runs: 30
+
+load:
+  type: constant
+  lambda: 1437.5
+
+noise:
+  sigma:  0.0
+  lag:    2
+  p_miss: 0.0
