@@ -51,7 +51,7 @@ class Cluster:
 
         Telemetry mapping:
             cpu     = rho (clipped to 1.0)
-            memory  = 0.6 * rho + 0.1 (memory pressure proxy)
+            memory  = 0.6 * rho + 0.1 * [rho > 0.5] (memory pressure proxy)
             latency = M/M/1 normalised: rho/(1-rho), capped and normalised
 
         Parameters

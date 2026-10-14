@@ -19,11 +19,13 @@ class CHBoundedLoads:
 
     def step(self, ring, ell: np.ndarray, total_load: float, t: int) -> float:
         ell = np.asarray(ell, dtype=np.float64)
-        mean = float(np.mean(ell))
+        live = (ring.live_mask(len(ell)) if hasattr(ring, "live_mask")
+                else np.ones(len(ell), dtype=bool))
+        mean = float(np.mean(ell[live]))
         if mean < 1e-9:
             return 0.0
         cap = (1.0 + self.epsilon) * mean
-        over = np.where(ell > cap)[0]
+        over = np.where(live & (ell > cap))[0]
         if len(over) == 0:
             return 0.0
 
@@ -40,7 +42,7 @@ class CHBoundedLoads:
                 recv = -1
                 for off in range(1, V):
                     node = int(a[(p + off) % V])
-                    if node != src and ell[node] < cap:
+                    if node != src and live[node] and ell[node] < cap:
                         recv = node
                         break
                 if recv >= 0:

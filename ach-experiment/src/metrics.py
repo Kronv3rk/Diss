@@ -54,7 +54,7 @@ def compute_imbalance(ring, n_nodes: int) -> float:
 
 
 def aggregate_metrics(D_trace: np.ndarray, M_trace: np.ndarray,
-                      warmup: int = 40) -> dict:
+                      warmup: int = 40, H: int = 100) -> dict:
     """Compute aggregate summary metrics after warmup period.
 
     Parameters
@@ -88,10 +88,29 @@ def aggregate_metrics(D_trace: np.ndarray, M_trace: np.ndarray,
     # ell_max was previously duplicating D_mean; corrected to D_max (true worst-case)
     ell_max = D_max
 
+    # Cost over the whole run, including the warm-up interval, and the
+    # largest / mean cost of a single step with rebalancing (post-warm-up).
+    M_cum_all = float(np.sum(M_trace))
+    active = M_post[M_post > 0.0]
+    M_step_max = float(np.max(active)) if len(active) > 0 else 0.0
+    M_step_mean = float(np.mean(active)) if len(active) > 0 else 0.0
+
+    # Largest cost over any window of H consecutive steps (whole run).
+    if len(M_trace) > 0:
+        csum = np.concatenate([[0.0], np.cumsum(M_trace)])
+        k = min(H, len(M_trace))
+        M_win_max = float(np.max(csum[k:] - csum[:-k]))
+    else:
+        M_win_max = 0.0
+
     return {
         "D_mean":  D_mean,
         "D_max":   D_max,
         "M_cum":   M_cum,
         "pi_chg":  pi_chg,
         "ell_max": ell_max,
+        "M_cum_all":   M_cum_all,
+        "M_step_max":  M_step_max,
+        "M_step_mean": M_step_mean,
+        "M_win_max":   M_win_max,
     }

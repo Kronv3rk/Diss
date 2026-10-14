@@ -46,7 +46,7 @@ Or use the shortcuts in the `Makefile` (`make test`, `make lint`, `make reproduc
 
 ## Test
 ```bash
-pytest -q          # 70 tests; coverage of src ≈ 78%
+pytest -q          # number of tests: see `pytest --collect-only -q | tail -1`
 ```
 
 ## Reproducibility
@@ -55,9 +55,24 @@ Results are deterministic: per run `seed = base_seed + run*1000`. Pin the exact 
 
 ## Real-trace replay (external validity)
 
-Beyond synthetic Zipf, the loader replays a **real measured popularity distribution**. The shipped
-sample `traces/sample_real.csv` is a real heavy-tailed token-frequency distribution (199k+ unique
-keys, top-100 ≈ 38% of requests). Run it with the `TRACE` series:
+Beyond synthetic Zipf, the loader can take an **empirical popularity distribution**. The `TRACE`
+series uses `traces/wikipedia_en_20240115.csv`: page-view counts of English Wikipedia (desktop
+`en` + mobile `en.m`) summed over one full day, 2024-01-15, from the 24 hourly Wikimedia pageview
+dumps (<https://dumps.wikimedia.org/other/pageviews/>). The 50 000 most viewed titles (of 7.34 million;
+49.6 % of the day's 291.9 million views) form the key universe (NK = 50 000); the most viewed key
+(`Main_Page`) gets ≈ 3.5 % and the top-100 ≈ 12.5 % of requests. Requests are sampled independently
+from this distribution on every step; the temporal order of the log is not replayed. SHA-256 sums of
+the 24 source dumps are in `traces/wikipedia_en_20240115.csv.sha256`. Rebuild the file with
+
+```bash
+python scripts/fetch_real_trace.py wikipedia-hourly --date 2024-01-15 --top 60000 \
+    --out traces/wikipedia_en_20240115.csv
+```
+
+`traces/sample_real.csv` (identifier frequencies of a Python source-code corpus; used by the unit
+tests of the trace loader only) is the trace of earlier versions of the `TRACE` series.
+
+Run the series:
 
 ```bash
 python scripts/run_series.py --series TRACE --n-runs 30 --output-dir results/TRACE

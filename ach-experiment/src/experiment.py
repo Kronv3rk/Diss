@@ -29,6 +29,11 @@ from .telemetry import Telemetry
 CAP_CLASSES = [1.0, 0.55, 0.25]
 
 
+def key_hash_seed(seed: int) -> int:
+    """Seed for the key-hash stream, distinct from the ring seed `seed`."""
+    return (int(seed) + 0x5EED) % (2**32)
+
+
 def _build_algorithms(cfg: dict, ring_snapshot: HashRing) -> list:
     """Construct one instance of each algorithm.
 
@@ -174,7 +179,11 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
         _tp = (trace_path if os.path.isabs(trace_path)
                else os.path.join(os.path.dirname(__file__), "..", trace_path))
         _key_probs = load_popularity(_tp, NK)
-    gen = LoadGenerator(NK=NK, zipf_s=zipf_s, seed=seed, key_probs=_key_probs)
+    # Key hashes must come from a stream independent of the ring's token
+    # positions (HashRing also uses RandomState(seed).uniform): with the same
+    # seed the first V key hashes coincided exactly with the V token positions.
+    gen = LoadGenerator(NK=NK, zipf_s=zipf_s, seed=key_hash_seed(seed),
+                        key_probs=_key_probs)
 
     _sigma_noise = float(noise_cfg.get("sigma", 0.0))
     _p_miss      = float(noise_cfg.get("p_miss", 0.0))
@@ -226,11 +235,9 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
                         cluster.remove_node(node_id)
                         dead_nodes.add(node_id)
                         for ring in rings:
-                            # Reassign orphaned tokens to node 0
-                            orphaned = np.where(ring.a == node_id)[0]
-                            if len(orphaned) > 0:
-                                ring.reassign(orphaned,
-                                              np.zeros(len(orphaned), dtype=np.int32))
+                            # Orphaned tokens go to the clockwise successor
+                            # owner (consistent hashing), not all to node 0.
+                            ring.remove_node(node_id)
                     elif ev["type"] == "add":
                         cap_class_idx = ev.get("cap_class", 0)
                         cap = CAP_CLASSES[cap_class_idx]
@@ -243,7 +250,7 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
                             # Bootstrap: steal v_min tokens from the node
                             # with the most tokens so the new node is valid
                             donor = int(np.argmax(
-                                [ring.node_count(i)
+                                [ring.node_count(i) if i not in ring.dead else -1
                                  for i in range(ring.n_nodes - 1)]
                             ))
                             donor_toks = np.where(ring.a == donor)[0]
@@ -285,11 +292,14 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
 
             tel.update(noisy_i)
             ell = tel.compute_ell()
-            total_load = tel.compute_total_load(ell)
+            # Removed nodes keep their slot in `ell` but are excluded from the
+            # cluster-level indicators and from every algorithm's decisions.
+            live = ring.live_mask(len(ell))
+            total_load = tel.compute_total_load(ell[live])
 
             M_keys = algo.step(ring, ell, total_load, t)
 
-            D = compute_D(ell)
+            D = compute_D(ell[live])
             results[algo.name]["D_trace"].append(D)
             results[algo.name]["M_trace"].append(M_keys)
             results[algo.name]["ell_trace"].append(ell.copy())
@@ -305,7 +315,8 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
         name = algo.name
         D_arr = np.array(results[name]["D_trace"])
         M_arr = np.array(results[name]["M_trace"])
-        results[name]["agg"] = aggregate_metrics(D_arr, M_arr, warmup=warmup)
+        results[name]["agg"] = aggregate_metrics(
+            D_arr, M_arr, warmup=warmup, H=int(ach_params.get("H", 100)))
         # Convert ell_trace to numpy array when shapes are homogeneous
         # (may be inhomogeneous during node churn)
         try:

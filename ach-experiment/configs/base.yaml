@@ -26,6 +26,13 @@ ach:
   M_H:      0.25
   H:        100
   v_min:    3
+  # Token selection rule (see src/algorithms/ach.py):
+  #   largest_first - legacy: descending arcs until the share of m(t) is
+  #                   reached; M_keys <= m + |O|*max L_s.  With V=1000 every
+  #                   node's longest arc exceeds M_H/H = 0.0025, so each source
+  #                   gives exactly one token per step and m(t) acts as on/off.
+  #   fit           - a token is taken only if it fits; M_keys <= m(t) exactly.
+  token_selection: largest_first
 
 # Telemetry parameters
 telemetry:

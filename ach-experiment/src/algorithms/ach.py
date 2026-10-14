@@ -29,6 +29,13 @@ class ACH:
           H        : int   = 100    history window length
           v_min    : int   = 3      minimum tokens per node
           v_max    : int or None     maximum tokens per node
+          token_selection : str = "largest_first"
+              "largest_first" - legacy rule: tokens are taken in descending
+                  arc order until the source's share of m(t) is reached; the
+                  last token may overshoot, so M_keys <= m + |O| * max L_s.
+              "fit" - a token is taken only if it still fits into the
+                  source's share, so M_keys <= m(t) holds exactly (a source
+                  may give nothing when even its smallest token is too long).
 
     Attributes
     ----------
@@ -54,6 +61,9 @@ class ACH:
         self.v_max    = params.get("v_max", None)
         if self.v_max is not None:
             self.v_max = int(self.v_max)
+        self.token_selection = str(params.get("token_selection", "largest_first"))
+        if self.token_selection not in ("largest_first", "fit"):
+            raise ValueError(f"Unknown token_selection: {self.token_selection!r}")
 
         # Per-node hysteresis state (initialised lazily)
         self.sigma: np.ndarray = None
@@ -96,15 +106,27 @@ class ACH:
         ell = np.asarray(ell, dtype=np.float64)
         n_nodes = len(ell)
 
-        # Lazy initialisation
-        if self.sigma is None or len(self.sigma) != n_nodes:
+        # Lazy initialisation; when nodes are added, keep the hysteresis
+        # state of existing nodes and start new ones in the neutral state.
+        if self.sigma is None:
             self.sigma = np.zeros(n_nodes, dtype=np.int8)
+        elif len(self.sigma) < n_nodes:
+            self.sigma = np.concatenate(
+                [self.sigma, np.zeros(n_nodes - len(self.sigma), dtype=np.int8)])
+        elif len(self.sigma) > n_nodes:
+            self.sigma = self.sigma[:n_nodes].copy()
 
-        # update hysteresis
+        if hasattr(ring, "live_mask"):
+            live = ring.live_mask(n_nodes)
+        else:
+            live = np.ones(n_nodes, dtype=bool)
+
+        # update hysteresis (removed nodes are kept neutral: never in O or U)
         self._update_hysteresis(ell)
+        self.sigma[~live] = 0
 
-        # compute capacity factor and budget
-        C = self._compute_C(total_load, ell)
+        # compute capacity factor and budget (over live nodes only)
+        C = self._compute_C(total_load, ell[live])
         m = self._compute_budget(C, t)
 
         # rebalance if budget > 0 and both O and U non-empty
@@ -117,13 +139,15 @@ class ACH:
 
         M_keys = self._rebalance(ring, ell, m)
 
-        # Enforce budget invariant: each of the |O| senders can overshoot its
-        # per-source share by at most one arc-length (discrete-token tolerance),
-        # so M_keys ≤ m + |O| · max_L_s.
+        # Enforce budget invariant. "fit": M_keys <= m exactly.
+        # "largest_first": each of the |O| senders can overshoot its share by
+        # at most one arc-length (discrete-token tolerance), so
+        # M_keys <= m + |O| * max_L_s.
         max_arc = float(np.max(ring.L)) if len(ring.L) > 0 else 0.0
-        assert M_keys <= m + len(O) * max_arc + 1e-9, (
+        tol = 0.0 if self.token_selection == "fit" else len(O) * max_arc
+        assert M_keys <= m + tol + 1e-9, (
             f"Budget violated at t={t}: M_keys={M_keys:.6f} > "
-            f"m+{len(O)}*max_arc={m + len(O) * max_arc:.6f}"
+            f"m+tol={m + tol:.6f} ({self.token_selection})"
         )
 
         self._M_history.append(M_keys)
@@ -223,8 +247,11 @@ class ACH:
         base = min(self.M_max, self.M_H / max(self.H, 1))
         m = base * C
 
-        # Rolling H-window: pause if the last H steps already exhausted M_H
-        if len(self._M_history) >= self.H:
+        # Rolling H-window: pause if the last H steps (or all steps so far,
+        # while fewer than H have elapsed) already exhausted M_H.  The window
+        # is enforced from t = 0, so every window of length H satisfies
+        # sum(M_keys) < M_H + (largest single-step cost).
+        if self._M_history:
             window_sum = float(sum(self._M_history[-self.H:]))
             if window_sum >= self.M_H - 1e-9:
                 return 0.0
@@ -292,10 +319,16 @@ class ACH:
             cumulative = 0.0
             selected = []
             for tok, arc in zip(src_tokens_sorted, arcs_sorted):
-                if cumulative >= share:
-                    break
                 remaining = len(src_tokens) - len(selected)
                 if remaining <= self.v_min:
+                    break
+                if self.token_selection == "fit":
+                    # take the token only if it still fits into the share
+                    if cumulative + arc <= share + 1e-12:
+                        selected.append(tok)
+                        cumulative += arc
+                    continue
+                if cumulative >= share:
                     break
                 selected.append(tok)
                 cumulative += arc
@@ -336,20 +369,28 @@ class ACH:
                                np.full(actual, dst, dtype=np.int32))
                 idx += actual
 
-        # Any remaining unassigned tokens go back to least-loaded of U
+        # Any remaining unassigned tokens go to the least-loaded receiver that
+        # still has room under v_max; if none has room they stay with their
+        # source.
         if idx < n_sel:
             remaining_tokens = T_out[idx:]
-            dst = U[np.argmin(ell[U])]
-            ring.reassign(remaining_tokens,
-                          np.full(len(remaining_tokens), dst, dtype=np.int32))
+            cand = U
+            if self.v_max is not None:
+                cand = np.array([d for d in U
+                                 if ring.node_count(d) + len(remaining_tokens)
+                                 <= self.v_max], dtype=np.int64)
+            if len(cand) > 0:
+                dst = cand[np.argmin(ell[cand])]
+                ring.reassign(remaining_tokens,
+                              np.full(len(remaining_tokens), dst, dtype=np.int32))
 
         M_keys = ring.get_M_keys(prev)
 
-        # Discrete-token bound: each of the |O| sources can overshoot its
-        # per-source share by at most one arc-length (the last token selected),
-        # so M_keys ≤ m + |O| · max_L_s.
+        # Discrete-token bound ("largest_first"): each of the |O| sources can
+        # overshoot its per-source share by at most one arc-length (the last
+        # token selected), so M_keys <= m + |O| * max_L_s; "fit": M_keys <= m.
         max_arc = float(np.max(ring.L)) if len(ring.L) > 0 else 0.0
-        n_over = len(O)
+        n_over = len(O) if self.token_selection == "largest_first" else 0
         assert M_keys <= m + n_over * max_arc + 1e-9, (
             f"Budget violated: M_keys={M_keys:.8f} > m+{n_over}*max_arc="
             f"{m + n_over * max_arc:.8f}"

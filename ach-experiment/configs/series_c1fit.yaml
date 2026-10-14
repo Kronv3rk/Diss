@@ -1,0 +1,19 @@
+# Series C1fit: C1 with the "fit" token-selection rule.
+# Diagnostic series: shows the effect of enforcing M_keys(t) <= m(t) exactly
+# instead of the legacy "largest_first" rule (one token per source per step).
+extends: base
+name: C1fit
+description: "Stationary load, fit token selection"
+n_runs: 30
+
+load:
+  type: constant
+  lambda: 1437.5
+
+noise:
+  sigma:  0.0
+  lag:    0
+  p_miss: 0.0
+
+ach:
+  token_selection: fit

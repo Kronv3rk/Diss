@@ -15,7 +15,7 @@ def check_all(ring, n_nodes: int, v_min: int = 3,
     Invariants checked:
       1. abs(sum(L) - 1.0) < 1e-9          arc lengths partition the unit circle
       2. node_count(i) >= v_min             each node has enough tokens
-      3. all a[s] in [0, n_nodes)           no stale/invalid node references
+      3. all a[s] in [0, n_nodes) and alive  no stale/invalid/removed node references
       4. positions are strictly sorted      consistent binary search
       5. L[s] > 0 for all s                 no zero-length arcs
 
@@ -55,11 +55,14 @@ def check_all(ring, n_nodes: int, v_min: int = 3,
 
     # Inv 3: all assignments in [0, n_nodes)
     invalid_mask = (ring.a < 0) | (ring.a >= n_nodes)
+    if _dead:
+        invalid_mask |= np.isin(ring.a, np.fromiter(_dead, dtype=np.int64))
     invalid_idx = np.where(invalid_mask)[0]
     if len(invalid_idx) > 0:
         sample = invalid_idx[:5].tolist()
         violations.append(
-            f"Inv3: tokens {sample} have assignments outside [0, {n_nodes}); "
+            f"Inv3: tokens {sample} are assigned to invalid or removed nodes "
+            f"(valid: live ids in [0, {n_nodes})); "
             f"values={ring.a[invalid_idx[:5]].tolist()}"
         )
 

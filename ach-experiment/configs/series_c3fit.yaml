@@ -1,0 +1,26 @@
+# Series C3fit: C3 (node churn + hot keys) with the "fit" token-selection rule.
+# Diagnostic series, see series_c1fit.yaml.
+extends: base
+name: C3fit
+description: "Node churn + hot keys, fit token selection"
+n_runs: 30
+
+load:
+  type: constant
+  lambda: 1437.5
+
+zipf_s: 1.0
+
+churn:
+  - t: 150
+    events:
+      - {type: remove, node: 9}
+      - {type: remove, node: 8}
+  - t: 300
+    events:
+      - {type: add, cap_class: 1}
+      - {type: add, cap_class: 1}
+      - {type: add, cap_class: 0}
+
+ach:
+  token_selection: fit

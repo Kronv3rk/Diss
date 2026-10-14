@@ -1,0 +1,30 @@
+# Series C3V100k: C3 with V=100000 virtual tokens.
+# Supplementary series: with V=100000 the longest arc of a node (~1e-4) is
+# smaller than the per-step budget M_H/H = 0.0025, so m(t) doses the moved
+# key share (several tokens per source per step, M_keys/m(t) close to 1) instead of acting
+# as on/off. Baselines that move a fixed number of tokens (Bounded-Loads: 2)
+# move ~100x less key space per step than with V=1000.
+
+extends: base
+name: C3V100k
+description: "Node churn + hot keys, V=100000"
+n_runs: 30
+
+load:
+  type: constant
+  lambda: 1437.5
+
+zipf_s: 1.0    # Zipf exponent (hot-key skew)
+
+churn:
+  - t: 150
+    events:
+      - {type: remove, node: 9}
+      - {type: remove, node: 8}
+  - t: 300
+    events:
+      - {type: add, cap_class: 1}   # cap=0.55
+      - {type: add, cap_class: 1}   # cap=0.55
+      - {type: add, cap_class: 0}   # cap=1.0
+
+V: 100000
