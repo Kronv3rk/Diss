@@ -31,9 +31,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.dirname(__file__))
 
 import numpy as np
+from run_series import _load_config
 
 import src.algorithms.ach as ach_mod
-from run_series import _load_config
 from src.experiment import run_experiment
 
 _REC = []
