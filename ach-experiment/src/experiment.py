@@ -220,6 +220,7 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
             "ell_trace":  [],
             "violations": [],
             "agg":        {},
+            "forced":     0.0,
         }
 
     # --- Main simulation loop ---
@@ -227,6 +228,12 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
         key_hashes, write_flags = load_seq[t]
 
         # Handle churn events
+        # Forced reassignment: key share moved by membership changes (node
+        # removal / bootstrap of an added node), measured per ring.  It is not
+        # part of M_keys, which counts only the rebalancing done by the
+        # algorithm itself.
+        _churn_now = any(eg.get("t") == t for eg in churn_cfg)
+        _pre_churn = [r.snapshot() for r in rings] if _churn_now else None
         for event_group in churn_cfg:
             if event_group.get("t") == t:
                 for ev in event_group.get("events", []):
@@ -262,6 +269,10 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
                                 )
                         for tel in telemetries:
                             tel.resize(cluster.n_nodes)
+
+        if _churn_now:
+            for algo, ring, prev in zip(algos, rings, _pre_churn):
+                results[algo.name]["forced"] += ring.get_M_keys(prev)
 
         # Handle degradation events
         if degrade_cfg:
@@ -317,6 +328,7 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
         M_arr = np.array(results[name]["M_trace"])
         results[name]["agg"] = aggregate_metrics(
             D_arr, M_arr, warmup=warmup, H=int(ach_params.get("H", 100)))
+        results[name]["agg"]["M_forced"] = float(results[name]["forced"])
         # Convert ell_trace to numpy array when shapes are homogeneous
         # (may be inhomogeneous during node churn)
         try:
