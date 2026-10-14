@@ -46,7 +46,7 @@ Or use the shortcuts in the `Makefile` (`make test`, `make lint`, `make reproduc
 
 ## Test
 ```bash
-pytest -q          # 70 tests; coverage of src ≈ 78%
+pytest -q          # number of tests: see `pytest --collect-only -q | tail -1`
 ```
 
 ## Reproducibility
@@ -55,9 +55,11 @@ Results are deterministic: per run `seed = base_seed + run*1000`. Pin the exact 
 
 ## Real-trace replay (external validity)
 
-Beyond synthetic Zipf, the loader replays a **real measured popularity distribution**. The shipped
-sample `traces/sample_real.csv` is a real heavy-tailed token-frequency distribution (199k+ unique
-keys, top-100 ≈ 38% of requests). Run it with the `TRACE` series:
+Beyond synthetic Zipf, the loader can take an **empirical popularity distribution**. The shipped
+sample `traces/sample_real.csv` is a heavy-tailed token-frequency distribution of a text/code
+corpus: 60 000 keys (the 50 000 most frequent are used, NK = 50 000), the most frequent key
+≈ 4 % and the top-100 ≈ 38 % of requests. Requests are sampled independently from this
+distribution on every step; the temporal order of a real access log is not replayed. Run it with the `TRACE` series:
 
 ```bash
 python scripts/run_series.py --series TRACE --n-runs 30 --output-dir results/TRACE

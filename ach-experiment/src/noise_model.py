@@ -114,11 +114,11 @@ class NoiseModel:
             else:
                 obs[mask] = 0.0
 
-        # Update last good
-        self._last_good = obs.copy()
-
         # --- Step 4: clip ---
         obs = np.clip(obs, 0.0, 1.0)
+
+        # Update last good (after clipping, so imputed values stay in [0, 1])
+        self._last_good = obs.copy()
         return obs
 
     def reset(self):

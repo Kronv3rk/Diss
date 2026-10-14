@@ -25,7 +25,7 @@ Diss/
     │   ├── telemetry.py  metrics.py  invariants.py  noise_model.py
     │   └── algorithms/  ach.py  bounded_loads.py  dynamic_r.py  static_w.py  static_weighted.py
     ├── scripts/             entry points (see "Run")
-    ├── tests/               pytest suite (57 tests)
+    ├── tests/               pytest suite (count: `pytest --collect-only -q`)
     └── results/             all_results.json (per-run JSON is gitignored)
 ```
 
@@ -81,7 +81,7 @@ Scripts self-insert the project dir on `sys.path`, so `from src...` works when i
 
 ```bash
 cd ach-experiment
-pytest -q          # 57 tests, ~0.2s   (needs PYTHONPATH=. or run from this dir)
+pytest -q          # (needs PYTHONPATH=. or run from this dir)
 ```
 
 ### ⚠️ Cowork sandbox caveat

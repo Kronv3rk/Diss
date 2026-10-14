@@ -65,8 +65,10 @@ class DynamicR:
         """
         ell = np.asarray(ell, dtype=np.float64)
 
-        O = np.where(ell > self.ell_star + self.threshold)[0]
-        U = np.where(ell < self.ell_star - self.threshold)[0]
+        live = (ring.live_mask(len(ell)) if hasattr(ring, "live_mask")
+                else np.ones(len(ell), dtype=bool))
+        O = np.where(live & (ell > self.ell_star + self.threshold))[0]
+        U = np.where(live & (ell < self.ell_star - self.threshold))[0]
 
         if len(O) == 0 or len(U) == 0:
             return 0.0

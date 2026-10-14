@@ -36,6 +36,10 @@ class HashRing:
         # Initial assignment: token s -> node s % n_nodes
         self.a = np.array([s % n_nodes for s in range(V)], dtype=np.int32)
 
+        # Ids of nodes removed from the cluster (churn). Removed ids keep
+        # their slot in per-node arrays, so algorithms must skip them.
+        self.dead: set = set()
+
         # Pre-compute arc lengths
         self._update_arc_lengths()
 
@@ -100,6 +104,33 @@ class HashRing:
             Corresponding new node ids.
         """
         self.a[token_indices] = new_nodes
+
+    def live_mask(self, n_nodes: int = None) -> np.ndarray:
+        """Boolean mask of live (not removed) node ids, shape (n_nodes,)."""
+        n = self.n_nodes if n_nodes is None else int(n_nodes)
+        mask = np.ones(n, dtype=bool)
+        for i in self.dead:
+            if 0 <= i < n:
+                mask[i] = False
+        return mask
+
+    def remove_node(self, node_id: int) -> np.ndarray:
+        """Remove a node: mark it dead and hand each of its tokens to the
+        owner of the next token clockwise that belongs to a live node
+        (the consistent-hashing successor rule).
+
+        Returns the indices of the reassigned tokens.
+        """
+        self.dead.add(int(node_id))
+        orphaned = np.where(self.a == node_id)[0]
+        V = self.V
+        for s in orphaned:
+            for off in range(1, V):
+                owner = int(self.a[(s + off) % V])
+                if owner != node_id and owner not in self.dead:
+                    self.a[s] = owner
+                    break
+        return orphaned
 
     def get_M_keys(self, prev_assignment: np.ndarray) -> float:
         """Compute the fraction of key space whose assignment changed.

@@ -18,13 +18,19 @@ import time
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 
-ALL_SERIES = ["C1", "C2", "C3", "C4", "C5"]
+# Same list as SERIES in the Makefile. The old aggregate series "C4" was
+# superseded by C4a/C4b/C4c; C5 is a sensitivity sweep run by
+# run_sensitivity.py, not by run_series.py.
+ALL_SERIES = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE", "C5"]
 
 DEFAULT_N_RUNS = {
     "C1": 30,
     "C2": 30,
     "C3": 30,
-    "C4": 30,
+    "C4a": 30,
+    "C4b": 30,
+    "C4c": 30,
+    "TRACE": 30,
     "C5": 10,
 }
 
@@ -60,14 +66,23 @@ def main():
         print(f"Starting series {series}  (n_runs={n_runs})")
         print(f"{'='*60}")
 
-        cmd = [
-            sys.executable, run_series_script,
-            "--series",     series,
-            "--n-runs",     str(n_runs),
-            "--output-dir", series_output,
-            "--base-seed",  str(args.base_seed),
-            "--config-dir", config_dir,
-        ]
+        if series == "C5":
+            cmd = [
+                sys.executable, os.path.join(script_dir, "run_sensitivity.py"),
+                "--n-runs",     str(n_runs),
+                "--output-dir", series_output,
+                "--base-seed",  str(args.base_seed),
+                "--config-dir", config_dir,
+            ]
+        else:
+            cmd = [
+                sys.executable, run_series_script,
+                "--series",     series,
+                "--n-runs",     str(n_runs),
+                "--output-dir", series_output,
+                "--base-seed",  str(args.base_seed),
+                "--config-dir", config_dir,
+            ]
 
         t0 = time.time()
         result = subprocess.run(cmd, check=False)
