@@ -28,6 +28,11 @@ ALGO_ORDER = ["Static-W", "Static-Wt", "HRW", "Dynamic-R", "Bounded-Loads", "CH-
 METRICS    = ["D_mean", "D_max", "M_cum", "pi_chg",
               "M_cum_all", "M_step_max", "M_step_mean", "M_win_max"]
 SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE"]  # C5 = sensitivity only
+# Supplementary series (not part of the main family of 84 tests): diagnostic
+# runs with the strict "fit" token rule and with V = 100000 tokens, where the
+# step budget m(t) doses the moved key share.  Stored under "supplementary"
+# with their own Holm/BH correction.
+SUPPLEMENTARY = ["C1fit", "C3fit", "C1V100k", "C2V100k", "C3V100k"]
 
 
 def ci95(arr: np.ndarray) -> float:
@@ -178,6 +183,23 @@ def main():
         print(f"[SKIP] C5_sensitivity: {sens_path} not found")
 
     annotate_results(all_results)
+
+    supp = {}
+    for s in SUPPLEMENTARY:
+        series_dir = os.path.join(root, s)
+        runs = load_runs(series_dir) if os.path.isdir(series_dir) else []
+        if not runs:
+            print(f"[SKIP] supplementary {s}: no run_*.json files")
+            continue
+        supp[s] = build_series(runs)
+        r = supp[s]["algorithms"].get("ACH", {})
+        print(f"{s} (supplementary): {supp[s]['n_runs']} runs  "
+              f"ACH D_mean={r.get('D_mean_mean', float('nan')):.4f}  "
+              f"violations={supp[s]['total_violations']}")
+    if supp:
+        annotate_results(supp)
+        all_results["supplementary"] = supp
+
     out_path = os.path.join(root, "all_results.json")
     with open(out_path, "w") as f:
         json.dump(all_results, f, indent=2)

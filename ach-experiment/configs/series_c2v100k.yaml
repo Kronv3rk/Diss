@@ -1,0 +1,29 @@
+# Series C2V100k: C2 with V=100000 virtual tokens.
+# Supplementary series: with V=100000 the longest arc of a node (~1e-4) is
+# smaller than the per-step budget M_H/H = 0.0025, so m(t) doses the moved
+# key share (several tokens per source per step, M_keys/m(t) close to 1) instead of acting
+# as on/off. Baselines that move a fixed number of tokens (Bounded-Loads: 2)
+# move ~100x less key space per step than with V=1000.
+#
+
+extends: base
+name: C2V100k
+description: "Step load + periodic + degradation, V=100000"
+n_runs: 30
+
+load:
+  type:        step_periodic
+  lambda_low:  1437.5
+  lambda_high: 1750.0
+  step_t:      200       # step-up at t=200
+  periodic_t:  350       # periodic modulation starts at t=350
+  period:      50
+  amplitude:   0.10
+
+degradation:
+  t_start: 250
+  nodes:
+    "7": 0.4
+    "8": 0.4
+
+V: 100000

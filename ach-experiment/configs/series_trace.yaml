@@ -1,17 +1,24 @@
-# Series TRACE: real measured key-popularity replay (external validity).
-# Popularity is loaded from a real corpus token-frequency trace instead of a
-# synthetic Zipf law — demonstrates the algorithms on non-synthetic skew.
+# Series TRACE: key popularity taken from a real access log.
+# Popularity = page-view counts of English Wikipedia (desktop "en" + mobile
+# "en.m") summed over one full day, 2024-01-15 (24 hourly Wikimedia pageview
+# dumps, https://dumps.wikimedia.org/other/pageviews/2024/2024-01/).  The
+# 50 000 most viewed titles (of 7.34 million) are the key universe; they carry
+# 49.6 % of the day's 291.9 million views.  Requests are sampled independently
+# every step from this distribution: the empirical popularity is reproduced,
+# the temporal order of the log is not.
+# Rebuild: python scripts/fetch_real_trace.py wikipedia-hourly --date 2024-01-15 \
+#              --top 60000 --out traces/wikipedia_en_20240115.csv
+# (checksums of the 24 source dumps: traces/wikipedia_en_20240115.csv.sha256)
 extends: base
 name: TRACE
-description: "Real-corpus popularity replay (non-synthetic heavy tail)"
+description: "Wikipedia page-view popularity (one day of real access counts)"
 n_runs: 30
 
 load:
   type: constant
   lambda: 1437.5
 
-# Replace with a domain trace (Wikipedia/Twitter) via scripts/fetch_real_trace.py
-trace: traces/sample_real.csv
+trace: traces/wikipedia_en_20240115.csv
 
 noise:
   sigma:  0.0

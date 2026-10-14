@@ -22,6 +22,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 # superseded by C4a/C4b/C4c; C5 is a sensitivity sweep run by
 # run_sensitivity.py, not by run_series.py.
 ALL_SERIES = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE", "C5"]
+# Supplementary diagnostic series (run with --series ... explicitly):
+# C1fit/C3fit - strict "fit" token rule; C1V100k/C2V100k/C3V100k - V = 100000,
+# where m(t) doses the moved key share (about 20 s per run).
+SUPPLEMENTARY = ["C1fit", "C3fit", "C1V100k", "C2V100k", "C3V100k"]
 
 DEFAULT_N_RUNS = {
     "C1": 30,
@@ -32,6 +36,7 @@ DEFAULT_N_RUNS = {
     "C4c": 30,
     "TRACE": 30,
     "C5": 10,
+    **{s: 30 for s in SUPPLEMENTARY},
 }
 
 

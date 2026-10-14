@@ -33,3 +33,18 @@ def test_experiment_runs_with_real_trace():
     for name, r in res.items():
         assert np.isfinite(r["agg"]["D_mean"])
         assert len(r["violations"]) == 0, f"{name}: {r['violations'][:2]}"
+
+
+WIKI = os.path.join(ROOT, "traces", "wikipedia_en_20240115.csv")
+
+
+def test_wikipedia_trace_used_by_series_trace():
+    cfg = yaml.safe_load(open(os.path.join(ROOT, "configs", "series_trace.yaml")))
+    assert cfg["trace"] == "traces/wikipedia_en_20240115.csv"
+    p = load_popularity(WIKI, 50_000)
+    assert len(p) == 50_000 and abs(p.sum() - 1.0) < 1e-9
+    # Main_Page ~3.5 %, top-100 ~12.5 % of requests (one day, 2024-01-15)
+    assert 0.03 < p[0] < 0.04
+    assert 0.11 < p[:100].sum() < 0.14
+    with open(WIKI.replace(".csv", ".csv.sha256")) as f:
+        assert len([ln for ln in f if ln.strip()]) == 24   # 24 hourly dumps

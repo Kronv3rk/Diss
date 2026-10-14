@@ -1,0 +1,80 @@
+{
+  "C1_V1000": {
+    "series": "C1",
+    "V": 1000,
+    "n_runs": 5,
+    "n_active_steps": 103,
+    "m_median": 0.00012355877234130792,
+    "M_step_median": 0.011161683623880814,
+    "ratio_median": 75.36100517330117,
+    "ratio_p90": 267.486812268885,
+    "tokens_per_src_median": 1.0,
+    "one_token_frac": 1.0,
+    "D_mean": 0.17759723801033067
+  },
+  "C1_V10000": {
+    "series": "C1",
+    "V": 10000,
+    "n_runs": 5,
+    "n_active_steps": 642,
+    "m_median": 8.79884311642757e-05,
+    "M_step_median": 0.0009601182866020852,
+    "ratio_median": 11.916340887188401,
+    "ratio_p90": 29.564346202932544,
+    "tokens_per_src_median": 1.0,
+    "one_token_frac": 1.0,
+    "D_mean": 0.21432238112539848
+  },
+  "C1_V100000": {
+    "series": "C1",
+    "V": 100000,
+    "n_runs": 5,
+    "n_active_steps": 4227,
+    "m_median": 8.015801717540174e-05,
+    "M_step_median": 0.00015581066713676872,
+    "ratio_median": 1.8488260711451487,
+    "ratio_p90": 4.5857059867159204,
+    "tokens_per_src_median": 1.0,
+    "one_token_frac": 0.7097232079489,
+    "D_mean": 0.21996424771240308
+  },
+  "C3_V1000": {
+    "series": "C3",
+    "V": 1000,
+    "n_runs": 5,
+    "n_active_steps": 414,
+    "m_median": 0.000579132471817582,
+    "M_step_median": 0.004353435721763166,
+    "ratio_median": 7.5611203991036025,
+    "ratio_p90": 75.37574710441893,
+    "tokens_per_src_median": 1.0,
+    "one_token_frac": 0.9830917874396136,
+    "D_mean": 0.14464747321209748
+  },
+  "C3_V10000": {
+    "series": "C3",
+    "V": 10000,
+    "n_runs": 5,
+    "n_active_steps": 1915,
+    "m_median": 0.0004761805336836265,
+    "M_step_median": 0.0008498673309804694,
+    "ratio_median": 1.7532515783734552,
+    "ratio_p90": 14.799944053387842,
+    "tokens_per_src_median": 1.0,
+    "one_token_frac": 0.5143603133159269,
+    "D_mean": 0.17782864512675908
+  },
+  "C3_V100000": {
+    "series": "C3",
+    "V": 100000,
+    "n_runs": 5,
+    "n_active_steps": 3049,
+    "m_median": 0.0004955817521175291,
+    "M_step_median": 0.0005465900854364492,
+    "ratio_median": 1.1352861010730932,
+    "ratio_p90": 3.3119902060955564,
+    "tokens_per_src_median": 4.75,
+    "one_token_frac": 0.289931124959003,
+    "D_mean": 0.18855604018982616
+  }
+}

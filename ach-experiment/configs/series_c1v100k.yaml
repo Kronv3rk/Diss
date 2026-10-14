@@ -1,0 +1,22 @@
+# Series C1V100k: C1 with V=100000 virtual tokens.
+# Supplementary series: with V=100000 the longest arc of a node (~1e-4) is
+# smaller than the per-step budget M_H/H = 0.0025, so m(t) doses the moved
+# key share (several tokens per source per step, M_keys/m(t) close to 1) instead of acting
+# as on/off. Baselines that move a fixed number of tokens (Bounded-Loads: 2)
+# move ~100x less key space per step than with V=1000.
+
+extends: base
+name: C1V100k
+description: "Stationary load, V=100000"
+n_runs: 30
+
+load:
+  type: constant
+  lambda: 1437.5
+
+noise:
+  sigma:  0.0
+  lag:    0
+  p_miss: 0.0
+
+V: 100000
