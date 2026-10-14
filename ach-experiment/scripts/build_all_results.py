@@ -26,7 +26,7 @@ from src.effectsize import bootstrap_ci_mean, cliffs_delta
 
 ALGO_ORDER = ["Static-W", "Static-Wt", "HRW", "Dynamic-R", "Bounded-Loads", "CH-BL", "ACH"]
 METRICS    = ["D_mean", "D_max", "M_cum", "pi_chg",
-              "M_cum_all", "M_step_max", "M_step_mean", "M_win_max"]
+              "M_cum_all", "M_step_max", "M_step_mean", "M_win_max", "M_forced"]
 SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE"]  # C5 = sensitivity only
 # Supplementary series (not part of the main family of 84 tests): diagnostic
 # runs with the strict "fit" token rule and with V = 100000 tokens, where the

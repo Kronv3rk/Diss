@@ -43,6 +43,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -86,6 +91,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "HRW": {
@@ -129,6 +139,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -172,6 +187,11 @@
         "M_win_max_ci95": 0.04106003989342841,
         "M_win_max_boot_lo": 1.9360241443368424,
         "M_win_max_boot_hi": 2.01365932294847,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -215,6 +235,11 @@
         "M_win_max_ci95": 0.061618850079523606,
         "M_win_max_boot_lo": 0.8030194444243681,
         "M_win_max_boot_hi": 0.9196363221236988,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "CH-BL": {
@@ -258,6 +283,11 @@
         "M_win_max_ci95": 0.04620794064306373,
         "M_win_max_boot_lo": 0.17946532197340828,
         "M_win_max_boot_hi": 0.2660951547796649,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "ACH": {
@@ -301,6 +331,11 @@
         "M_win_max_ci95": 0.01155210857204698,
         "M_win_max_boot_lo": 0.20778413559684888,
         "M_win_max_boot_hi": 0.22949290658718136,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       }
     },
@@ -436,6 +471,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -479,6 +519,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "HRW": {
@@ -522,6 +567,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -565,6 +615,11 @@
         "M_win_max_ci95": 0.06574382550081248,
         "M_win_max_boot_lo": 1.707816075828158,
         "M_win_max_boot_hi": 1.8311936761883671,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -608,6 +663,11 @@
         "M_win_max_ci95": 0.067291680238647,
         "M_win_max_boot_lo": 0.40674755298413656,
         "M_win_max_boot_hi": 0.5342935988566361,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "CH-BL": {
@@ -651,6 +711,11 @@
         "M_win_max_ci95": 0.04620794064306373,
         "M_win_max_boot_lo": 0.17946532197340828,
         "M_win_max_boot_hi": 0.2660951547796649,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "ACH": {
@@ -694,6 +759,11 @@
         "M_win_max_ci95": 0.01155210857204698,
         "M_win_max_boot_lo": 0.20778413559684888,
         "M_win_max_boot_hi": 0.22949290658718136,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       }
     },
@@ -829,6 +899,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.2104851647256732,
+        "M_forced_std": 0.013874076282813882,
+        "M_forced_ci95": 0.005180665225852712,
+        "M_forced_boot_lo": 0.2055141458534788,
+        "M_forced_boot_hi": 0.2153664891236798,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -872,6 +947,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0944602322229554,
+        "M_forced_std": 0.010926998425817043,
+        "M_forced_ci95": 0.004080208268546181,
+        "M_forced_boot_lo": 0.09072925672694337,
+        "M_forced_boot_hi": 0.09822291958972676,
         "n_runs": 30
       },
       "HRW": {
@@ -915,6 +995,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.10268777626223818,
+        "M_forced_std": 0.008825259625193142,
+        "M_forced_ci95": 0.003295406102530608,
+        "M_forced_boot_lo": 0.09959900015124849,
+        "M_forced_boot_hi": 0.10578279912762831,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -958,6 +1043,11 @@
         "M_win_max_ci95": 0.0671163534362091,
         "M_win_max_boot_lo": 1.6404777959913683,
         "M_win_max_boot_hi": 1.7673756151733522,
+        "M_forced_mean": 0.11142543977348253,
+        "M_forced_std": 0.021199660916113614,
+        "M_forced_ci95": 0.007916083483267666,
+        "M_forced_boot_lo": 0.10367362342604027,
+        "M_forced_boot_hi": 0.11874459470764268,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -1001,6 +1091,11 @@
         "M_win_max_ci95": 0.060689271229484906,
         "M_win_max_boot_lo": 0.5482133353071427,
         "M_win_max_boot_hi": 0.6611823472089328,
+        "M_forced_mean": 0.11217752939867284,
+        "M_forced_std": 0.02145226610276782,
+        "M_forced_ci95": 0.008010407810141272,
+        "M_forced_boot_lo": 0.10443617360693487,
+        "M_forced_boot_hi": 0.11969699752982112,
         "n_runs": 30
       },
       "CH-BL": {
@@ -1044,6 +1139,11 @@
         "M_win_max_ci95": 0.20032190803328803,
         "M_win_max_boot_lo": 3.9224588694803164,
         "M_win_max_boot_hi": 4.2955230513771765,
+        "M_forced_mean": 0.11985453919324501,
+        "M_forced_std": 0.028737985270632843,
+        "M_forced_ci95": 0.010730940058118189,
+        "M_forced_boot_lo": 0.10981142857084224,
+        "M_forced_boot_hi": 0.1297392576612548,
         "n_runs": 30
       },
       "ACH": {
@@ -1087,6 +1187,11 @@
         "M_win_max_ci95": 0.006194079417329526,
         "M_win_max_boot_lo": 0.24197319970239686,
         "M_win_max_boot_hi": 0.2534439810924838,
+        "M_forced_mean": 0.11288420049384472,
+        "M_forced_std": 0.021006979101819062,
+        "M_forced_ci95": 0.007844134911368397,
+        "M_forced_boot_lo": 0.10531428379007667,
+        "M_forced_boot_hi": 0.12030362593647163,
         "n_runs": 30
       }
     },
@@ -1222,6 +1327,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -1265,6 +1375,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "HRW": {
@@ -1308,6 +1423,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -1351,6 +1471,11 @@
         "M_win_max_ci95": 0.03718167334528779,
         "M_win_max_boot_lo": 1.9445397198178507,
         "M_win_max_boot_hi": 2.0136663621042254,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -1394,6 +1519,11 @@
         "M_win_max_ci95": 0.05384449316154607,
         "M_win_max_boot_lo": 0.8472658991591313,
         "M_win_max_boot_hi": 0.949352121609358,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "CH-BL": {
@@ -1437,6 +1567,11 @@
         "M_win_max_ci95": 0.041622559114282504,
         "M_win_max_boot_lo": 0.17022358738522805,
         "M_win_max_boot_hi": 0.24804236852187994,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "ACH": {
@@ -1480,6 +1615,11 @@
         "M_win_max_ci95": 0.01209684303875763,
         "M_win_max_boot_lo": 0.21396925491033839,
         "M_win_max_boot_hi": 0.23697905990980342,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       }
     },
@@ -1615,6 +1755,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -1658,6 +1803,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "HRW": {
@@ -1701,6 +1851,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -1744,6 +1899,11 @@
         "M_win_max_ci95": 0.027548183066986726,
         "M_win_max_boot_lo": 2.0418627602333497,
         "M_win_max_boot_hi": 2.093886626253614,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -1787,6 +1947,11 @@
         "M_win_max_ci95": 0.05053025703067082,
         "M_win_max_boot_lo": 0.9495901053119016,
         "M_win_max_boot_hi": 1.0436277959487168,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "CH-BL": {
@@ -1830,6 +1995,11 @@
         "M_win_max_ci95": 0.03645712053132108,
         "M_win_max_boot_lo": 0.1931227259827808,
         "M_win_max_boot_hi": 0.2609524310019131,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "ACH": {
@@ -1873,6 +2043,11 @@
         "M_win_max_ci95": 0.010810658346100706,
         "M_win_max_boot_lo": 0.21777598721070057,
         "M_win_max_boot_hi": 0.238099600545203,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       }
     },
@@ -2008,6 +2183,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -2051,6 +2231,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "HRW": {
@@ -2094,6 +2279,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -2137,6 +2327,11 @@
         "M_win_max_ci95": 0.014660070622621972,
         "M_win_max_boot_lo": 2.878352766622927,
         "M_win_max_boot_hi": 2.9057825528909347,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -2180,6 +2375,11 @@
         "M_win_max_ci95": 0.035027541564515166,
         "M_win_max_boot_lo": 2.16077138930183,
         "M_win_max_boot_hi": 2.2271049663008857,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "CH-BL": {
@@ -2223,6 +2423,11 @@
         "M_win_max_ci95": 0.0501183464591612,
         "M_win_max_boot_lo": 0.4934180248059613,
         "M_win_max_boot_hi": 0.5877038430951613,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "ACH": {
@@ -2266,6 +2471,11 @@
         "M_win_max_ci95": 0.0012219283908745692,
         "M_win_max_boot_lo": 0.26998052217339324,
         "M_win_max_boot_hi": 0.2722723011229967,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       }
     },
@@ -2401,6 +2611,11 @@
         "M_win_max_ci95": 0.0,
         "M_win_max_boot_lo": 0.0,
         "M_win_max_boot_hi": 0.0,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Static-Wt": {
@@ -2444,6 +2659,11 @@
         "M_win_max_ci95": 0.0030277704421363817,
         "M_win_max_boot_lo": 0.897350921585362,
         "M_win_max_boot_hi": 0.9029491099310479,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "HRW": {
@@ -2487,6 +2707,11 @@
         "M_win_max_ci95": 0.00378522208063256,
         "M_win_max_boot_lo": 0.8894204628427739,
         "M_win_max_boot_hi": 0.8965105728922533,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Dynamic-R": {
@@ -2530,6 +2755,11 @@
         "M_win_max_ci95": 0.04909987478323879,
         "M_win_max_boot_lo": 1.9881517483486346,
         "M_win_max_boot_hi": 2.079450901291032,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "Bounded-Loads": {
@@ -2573,6 +2803,11 @@
         "M_win_max_ci95": 0.05188647909441889,
         "M_win_max_boot_lo": 0.8127892840378068,
         "M_win_max_boot_hi": 0.9121070265644411,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "CH-BL": {
@@ -2616,6 +2851,11 @@
         "M_win_max_ci95": 0.06788885295689473,
         "M_win_max_boot_lo": 0.22569621708075585,
         "M_win_max_boot_hi": 0.35119835599803595,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       },
       "ACH": {
@@ -2659,6 +2899,11 @@
         "M_win_max_ci95": 0.011187932455321192,
         "M_win_max_boot_lo": 0.21462065587725596,
         "M_win_max_boot_hi": 0.23548045195432907,
+        "M_forced_mean": 0.0,
+        "M_forced_std": 0.0,
+        "M_forced_ci95": 0.0,
+        "M_forced_boot_lo": 0.0,
+        "M_forced_boot_hi": 0.0,
         "n_runs": 30
       }
     },
@@ -3002,6 +3247,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -3045,6 +3295,11 @@
           "M_win_max_ci95": 0.0030277704421363817,
           "M_win_max_boot_lo": 0.897350921585362,
           "M_win_max_boot_hi": 0.9029491099310479,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -3088,6 +3343,11 @@
           "M_win_max_ci95": 0.00378522208063256,
           "M_win_max_boot_lo": 0.8894204628427739,
           "M_win_max_boot_hi": 0.8965105728922533,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -3131,6 +3391,11 @@
           "M_win_max_ci95": 0.04106003989342841,
           "M_win_max_boot_lo": 1.9360241443368424,
           "M_win_max_boot_hi": 2.01365932294847,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -3174,6 +3439,11 @@
           "M_win_max_ci95": 0.061618850079523606,
           "M_win_max_boot_lo": 0.8030194444243681,
           "M_win_max_boot_hi": 0.9196363221236988,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -3217,6 +3487,11 @@
           "M_win_max_ci95": 0.04620794064306373,
           "M_win_max_boot_lo": 0.17946532197340828,
           "M_win_max_boot_hi": 0.2660951547796649,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -3260,6 +3535,11 @@
           "M_win_max_ci95": 0.00017821138394986252,
           "M_win_max_boot_lo": 0.001967091795258763,
           "M_win_max_boot_hi": 0.00230164468402217,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },
@@ -3395,6 +3675,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.2104851647256732,
+          "M_forced_std": 0.013874076282813882,
+          "M_forced_ci95": 0.005180665225852712,
+          "M_forced_boot_lo": 0.2055141458534788,
+          "M_forced_boot_hi": 0.2153664891236798,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -3438,6 +3723,11 @@
           "M_win_max_ci95": 0.0030277704421363817,
           "M_win_max_boot_lo": 0.897350921585362,
           "M_win_max_boot_hi": 0.9029491099310479,
+          "M_forced_mean": 0.0944602322229554,
+          "M_forced_std": 0.010926998425817043,
+          "M_forced_ci95": 0.004080208268546181,
+          "M_forced_boot_lo": 0.09072925672694337,
+          "M_forced_boot_hi": 0.09822291958972676,
           "n_runs": 30
         },
         "HRW": {
@@ -3481,6 +3771,11 @@
           "M_win_max_ci95": 0.00378522208063256,
           "M_win_max_boot_lo": 0.8894204628427739,
           "M_win_max_boot_hi": 0.8965105728922533,
+          "M_forced_mean": 0.10268777626223818,
+          "M_forced_std": 0.008825259625193142,
+          "M_forced_ci95": 0.003295406102530608,
+          "M_forced_boot_lo": 0.09959900015124849,
+          "M_forced_boot_hi": 0.10578279912762831,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -3524,6 +3819,11 @@
           "M_win_max_ci95": 0.0671163534362091,
           "M_win_max_boot_lo": 1.6404777959913683,
           "M_win_max_boot_hi": 1.7673756151733522,
+          "M_forced_mean": 0.11142543977348253,
+          "M_forced_std": 0.021199660916113614,
+          "M_forced_ci95": 0.007916083483267666,
+          "M_forced_boot_lo": 0.10367362342604027,
+          "M_forced_boot_hi": 0.11874459470764268,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -3567,6 +3867,11 @@
           "M_win_max_ci95": 0.060689271229484906,
           "M_win_max_boot_lo": 0.5482133353071427,
           "M_win_max_boot_hi": 0.6611823472089328,
+          "M_forced_mean": 0.11217752939867284,
+          "M_forced_std": 0.02145226610276782,
+          "M_forced_ci95": 0.008010407810141272,
+          "M_forced_boot_lo": 0.10443617360693487,
+          "M_forced_boot_hi": 0.11969699752982112,
           "n_runs": 30
         },
         "CH-BL": {
@@ -3610,6 +3915,11 @@
           "M_win_max_ci95": 0.20032190803328803,
           "M_win_max_boot_lo": 3.9224588694803164,
           "M_win_max_boot_hi": 4.2955230513771765,
+          "M_forced_mean": 0.11985453919324501,
+          "M_forced_std": 0.028737985270632843,
+          "M_forced_ci95": 0.010730940058118189,
+          "M_forced_boot_lo": 0.10981142857084224,
+          "M_forced_boot_hi": 0.1297392576612548,
           "n_runs": 30
         },
         "ACH": {
@@ -3653,6 +3963,11 @@
           "M_win_max_ci95": 0.001164601273462265,
           "M_win_max_boot_lo": 0.007280692570853368,
           "M_win_max_boot_hi": 0.0094477846521873,
+          "M_forced_mean": 0.2094443255935402,
+          "M_forced_std": 0.01289265783114627,
+          "M_forced_ci95": 0.004814197553272392,
+          "M_forced_boot_lo": 0.20478312206225127,
+          "M_forced_boot_hi": 0.2139670434340514,
           "n_runs": 30
         }
       },
@@ -3788,6 +4103,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -3831,6 +4151,11 @@
           "M_win_max_ci95": 0.0003175168982578223,
           "M_win_max_boot_lo": 0.8998950004089726,
           "M_win_max_boot_hi": 0.9004874560023358,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -3874,6 +4199,11 @@
           "M_win_max_ci95": 0.00032834096276042346,
           "M_win_max_boot_lo": 0.898940586929451,
           "M_win_max_boot_hi": 0.8995651687648698,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -3917,6 +4247,11 @@
           "M_win_max_ci95": 0.03582094259342627,
           "M_win_max_boot_lo": 1.7967877655436901,
           "M_win_max_boot_hi": 1.8636333737969473,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -3960,6 +4295,11 @@
           "M_win_max_ci95": 0.000670185605451243,
           "M_win_max_boot_lo": 0.05254890835476261,
           "M_win_max_boot_hi": 0.05379705043232539,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -4003,6 +4343,11 @@
           "M_win_max_ci95": 0.0002527183175996461,
           "M_win_max_boot_lo": 0.029232961175127182,
           "M_win_max_boot_hi": 0.029708631911547982,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -4046,6 +4391,11 @@
           "M_win_max_ci95": 0.0003027885954693207,
           "M_win_max_boot_lo": 0.03744617690508164,
           "M_win_max_boot_hi": 0.03801657474200571,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },
@@ -4181,6 +4531,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -4224,6 +4579,11 @@
           "M_win_max_ci95": 0.0003175168982578223,
           "M_win_max_boot_lo": 0.8998950004089726,
           "M_win_max_boot_hi": 0.9004874560023358,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -4267,6 +4627,11 @@
           "M_win_max_ci95": 0.00032834096276042346,
           "M_win_max_boot_lo": 0.898940586929451,
           "M_win_max_boot_hi": 0.8995651687648698,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -4310,6 +4675,11 @@
           "M_win_max_ci95": 0.058459967172768766,
           "M_win_max_boot_lo": 1.4840098664550023,
           "M_win_max_boot_hi": 1.5938547299551393,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -4353,6 +4723,11 @@
           "M_win_max_ci95": 0.000670185605451243,
           "M_win_max_boot_lo": 0.05254890835476261,
           "M_win_max_boot_hi": 0.05379705043232539,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -4396,6 +4771,11 @@
           "M_win_max_ci95": 0.0002527183175996461,
           "M_win_max_boot_lo": 0.029232961175127182,
           "M_win_max_boot_hi": 0.029708631911547982,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -4439,6 +4819,11 @@
           "M_win_max_ci95": 0.0003027885954693207,
           "M_win_max_boot_lo": 0.03744617690508164,
           "M_win_max_boot_hi": 0.03801657474200571,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },
@@ -4574,6 +4959,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.1999242018541084,
+          "M_forced_std": 0.001204097785188519,
+          "M_forced_ci95": 0.0004496175022462293,
+          "M_forced_boot_lo": 0.19950199670022123,
+          "M_forced_boot_hi": 0.20034731116265322,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -4617,6 +5007,11 @@
           "M_win_max_ci95": 0.0003175168982578223,
           "M_win_max_boot_lo": 0.8998950004089726,
           "M_win_max_boot_hi": 0.9004874560023358,
+          "M_forced_mean": 0.08403099704299503,
+          "M_forced_std": 0.0008903064713992259,
+          "M_forced_ci95": 0.0003324459000159207,
+          "M_forced_boot_lo": 0.08371735077717683,
+          "M_forced_boot_hi": 0.084341783592837,
           "n_runs": 30
         },
         "HRW": {
@@ -4660,6 +5055,11 @@
           "M_win_max_ci95": 0.00032834096276042346,
           "M_win_max_boot_lo": 0.898940586929451,
           "M_win_max_boot_hi": 0.8995651687648698,
+          "M_forced_mean": 0.08579702222306285,
+          "M_forced_std": 0.0008910076996413598,
+          "M_forced_ci95": 0.0003327077429448016,
+          "M_forced_boot_lo": 0.08549014450070422,
+          "M_forced_boot_hi": 0.08611888934585044,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -4703,6 +5103,11 @@
           "M_win_max_ci95": 0.07852596263204241,
           "M_win_max_boot_lo": 1.5400011442589328,
           "M_win_max_boot_hi": 1.6857225783723577,
+          "M_forced_mean": 0.10634330223166504,
+          "M_forced_std": 0.015870269283880273,
+          "M_forced_ci95": 0.00592605594260447,
+          "M_forced_boot_lo": 0.10073916991505136,
+          "M_forced_boot_hi": 0.11174344336713246,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -4746,6 +5151,11 @@
           "M_win_max_ci95": 0.0027060207347213774,
           "M_win_max_boot_lo": 0.044932992495148934,
           "M_win_max_boot_hi": 0.050084031195051705,
+          "M_forced_mean": 0.17352213233579178,
+          "M_forced_std": 0.0010178781493591523,
+          "M_forced_ci95": 0.0003800819474426853,
+          "M_forced_boot_lo": 0.17316680515413405,
+          "M_forced_boot_hi": 0.1738847801018524,
           "n_runs": 30
         },
         "CH-BL": {
@@ -4789,6 +5199,11 @@
           "M_win_max_ci95": 0.002458433361917181,
           "M_win_max_boot_lo": 0.06742536781177706,
           "M_win_max_boot_hi": 0.07199395853752315,
+          "M_forced_mean": 0.17520788246409408,
+          "M_forced_std": 0.003611214683272159,
+          "M_forced_ci95": 0.0013484497238847825,
+          "M_forced_boot_lo": 0.17403662828408337,
+          "M_forced_boot_hi": 0.1765754041502377,
           "n_runs": 30
         },
         "ACH": {
@@ -4832,6 +5247,11 @@
           "M_win_max_ci95": 0.0014267419220251485,
           "M_win_max_boot_lo": 0.06493109851767913,
           "M_win_max_boot_hi": 0.06757688129103047,
+          "M_forced_mean": 0.1822779821063742,
+          "M_forced_std": 0.005032581091784087,
+          "M_forced_ci95": 0.0018791966634049565,
+          "M_forced_boot_lo": 0.18041370429617565,
+          "M_forced_boot_hi": 0.18391848210635664,
           "n_runs": 30
         }
       },
@@ -4967,6 +5387,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -5010,6 +5435,11 @@
           "M_win_max_ci95": 0.0030277704421363817,
           "M_win_max_boot_lo": 0.897350921585362,
           "M_win_max_boot_hi": 0.9029491099310479,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -5053,6 +5483,11 @@
           "M_win_max_ci95": 0.00378522208063256,
           "M_win_max_boot_lo": 0.8894204628427739,
           "M_win_max_boot_hi": 0.8965105728922533,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -5096,6 +5531,11 @@
           "M_win_max_ci95": 0.022169127241577543,
           "M_win_max_boot_lo": 2.875836664189278,
           "M_win_max_boot_hi": 2.917396788479713,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -5139,6 +5579,11 @@
           "M_win_max_ci95": 0.09259741156742753,
           "M_win_max_boot_lo": 2.1048988371598587,
           "M_win_max_boot_hi": 2.2804169024705834,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -5182,6 +5627,11 @@
           "M_win_max_ci95": 0.06300590610472052,
           "M_win_max_boot_lo": 0.25629022794968964,
           "M_win_max_boot_hi": 0.37331669683489627,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -5225,6 +5675,11 @@
           "M_win_max_ci95": 0.007397517407101123,
           "M_win_max_boot_lo": 0.2417809204808504,
           "M_win_max_boot_hi": 0.25545181796676153,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },
@@ -5360,6 +5815,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -5403,6 +5863,11 @@
           "M_win_max_ci95": 0.0030277704421363817,
           "M_win_max_boot_lo": 0.897350921585362,
           "M_win_max_boot_hi": 0.9029491099310479,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -5446,6 +5911,11 @@
           "M_win_max_ci95": 0.00378522208063256,
           "M_win_max_boot_lo": 0.8894204628427739,
           "M_win_max_boot_hi": 0.8965105728922533,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -5489,6 +5959,11 @@
           "M_win_max_ci95": 0.014080462689191331,
           "M_win_max_boot_lo": 2.930102965755999,
           "M_win_max_boot_hi": 2.9564323665215335,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -5532,6 +6007,11 @@
           "M_win_max_ci95": 0.0475433562894298,
           "M_win_max_boot_lo": 2.166865877602889,
           "M_win_max_boot_hi": 2.2588208313878906,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -5575,6 +6055,11 @@
           "M_win_max_ci95": 0.0966989945719048,
           "M_win_max_boot_lo": 0.3651103723941199,
           "M_win_max_boot_hi": 0.5465666619717352,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -5618,6 +6103,11 @@
           "M_win_max_ci95": 0.0016469433598352847,
           "M_win_max_boot_lo": 0.2581898893531895,
           "M_win_max_boot_hi": 0.26129379232827216,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },
@@ -5753,6 +6243,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -5796,6 +6291,11 @@
           "M_win_max_ci95": 0.0030277704421363817,
           "M_win_max_boot_lo": 0.897350921585362,
           "M_win_max_boot_hi": 0.9029491099310479,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -5839,6 +6339,11 @@
           "M_win_max_ci95": 0.00378522208063256,
           "M_win_max_boot_lo": 0.8894204628427739,
           "M_win_max_boot_hi": 0.8965105728922533,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -5882,6 +6387,11 @@
           "M_win_max_ci95": 0.01139804023720348,
           "M_win_max_boot_lo": 2.8952009218907957,
           "M_win_max_boot_hi": 2.9166734229736044,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -5925,6 +6435,11 @@
           "M_win_max_ci95": 0.05497754208017519,
           "M_win_max_boot_lo": 2.0425048490932016,
           "M_win_max_boot_hi": 2.1465154625864145,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -5968,6 +6483,11 @@
           "M_win_max_ci95": 0.14583713585712893,
           "M_win_max_boot_lo": 0.5343343586866932,
           "M_win_max_boot_hi": 0.80986772063679,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -6011,6 +6531,11 @@
           "M_win_max_ci95": 0.002682899282957446,
           "M_win_max_boot_lo": 0.25967525970324146,
           "M_win_max_boot_hi": 0.2647796398219682,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },
@@ -6146,6 +6671,11 @@
           "M_win_max_ci95": 0.0,
           "M_win_max_boot_lo": 0.0,
           "M_win_max_boot_hi": 0.0,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Static-Wt": {
@@ -6189,6 +6719,11 @@
           "M_win_max_ci95": 0.0030277704421363817,
           "M_win_max_boot_lo": 0.897350921585362,
           "M_win_max_boot_hi": 0.9029491099310479,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "HRW": {
@@ -6232,6 +6767,11 @@
           "M_win_max_ci95": 0.00378522208063256,
           "M_win_max_boot_lo": 0.8894204628427739,
           "M_win_max_boot_hi": 0.8965105728922533,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Dynamic-R": {
@@ -6275,6 +6815,11 @@
           "M_win_max_ci95": 0.0062957827447615924,
           "M_win_max_boot_lo": 2.8164431221262274,
           "M_win_max_boot_hi": 2.8281007889433565,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "Bounded-Loads": {
@@ -6318,6 +6863,11 @@
           "M_win_max_ci95": 0.0447432863491618,
           "M_win_max_boot_lo": 1.906646049194952,
           "M_win_max_boot_hi": 1.9905761974999212,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "CH-BL": {
@@ -6361,6 +6911,11 @@
           "M_win_max_ci95": 0.1940389351451219,
           "M_win_max_boot_lo": 0.9933152585272138,
           "M_win_max_boot_hi": 1.3596119543135516,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         },
         "ACH": {
@@ -6404,6 +6959,11 @@
           "M_win_max_ci95": 0.0011848842735037732,
           "M_win_max_boot_lo": 0.26494365927773506,
           "M_win_max_boot_hi": 0.26717841924893937,
+          "M_forced_mean": 0.0,
+          "M_forced_std": 0.0,
+          "M_forced_ci95": 0.0,
+          "M_forced_boot_lo": 0.0,
+          "M_forced_boot_hi": 0.0,
           "n_runs": 30
         }
       },

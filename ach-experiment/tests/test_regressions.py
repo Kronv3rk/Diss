@@ -226,3 +226,19 @@ def test_aggregate_metrics_whole_run_cost():
     assert abs(agg["M_step_max"] - 0.3) < 1e-12
     assert abs(agg["M_step_mean"] - 0.2) < 1e-12
     assert abs(agg["M_win_max"] - 0.6) < 1e-12      # 0.5 + 0.0 + 0.1
+
+
+# 8 -------------------------------------------------------------------------
+def test_forced_reassignment_recorded_separately():
+    """Membership changes move key space that is not the algorithm's own
+    rebalancing: it is reported as agg['M_forced'] and kept out of M_keys."""
+    cfg = _base_cfg(T=80)
+    cfg["churn"] = [{"t": 30, "events": [{"type": "remove", "node": 9}]},
+                    {"t": 50, "events": [{"type": "add", "cap_class": 1}]}]
+    res = run_experiment(cfg, seed=42)
+    for name, r in res.items():
+        assert r["agg"]["M_forced"] > 0.0, name
+    # static algorithms never rebalance: all their movement is forced
+    assert res["Static-W"]["agg"]["M_cum_all"] == 0.0
+    no_churn = run_experiment(_base_cfg(T=40), seed=42)
+    assert all(r["agg"]["M_forced"] == 0.0 for r in no_churn.values())
