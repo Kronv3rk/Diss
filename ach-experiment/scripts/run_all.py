@@ -25,7 +25,8 @@ ALL_SERIES = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE", "C5"]
 # Supplementary diagnostic series (run with --series ... explicitly):
 # C1fit/C3fit - strict "fit" token rule; C1V100k/C2V100k/C3V100k - V = 100000,
 # where m(t) doses the moved key share (about 20 s per run).
-SUPPLEMENTARY = ["C1fit", "C3fit", "C1V100k", "C2V100k", "C3V100k"]
+SUPPLEMENTARY = ["C1fit", "C3fit", "C1V100k", "C2V100k", "C3V100k",
+                 "C4d1", "C4d2", "C4d3", "C4d5"]
 
 DEFAULT_N_RUNS = {
     "C1": 30,

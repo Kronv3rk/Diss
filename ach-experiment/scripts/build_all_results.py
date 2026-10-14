@@ -32,7 +32,8 @@ SERIES     = ["C1", "C2", "C3", "C4a", "C4b", "C4c", "TRACE"]  # C5 = sensitivit
 # runs with the strict "fit" token rule and with V = 100000 tokens, where the
 # step budget m(t) doses the moved key share.  Stored under "supplementary"
 # with their own Holm/BH correction.
-SUPPLEMENTARY = ["C1fit", "C3fit", "C1V100k", "C2V100k", "C3V100k"]
+SUPPLEMENTARY = ["C1fit", "C3fit", "C1V100k", "C2V100k", "C3V100k",
+                 "C4d1", "C4d2", "C4d3", "C4d5"]
 
 
 def ci95(arr: np.ndarray) -> float:
