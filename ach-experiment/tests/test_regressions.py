@@ -194,3 +194,35 @@ def test_noise_model_imputes_clipped_values():
     out = nm.apply(raw, gauss_delta=np.zeros((10, 3)),
                    miss_mask=np.ones((10, 3), bool))
     assert np.all((out >= 0.0) & (out <= 1.0))
+
+
+# 7 -------------------------------------------------------------------------
+def test_horizon_window_enforced_from_first_step():
+    """The rolling M_H window must hold on every window of H steps, including
+    the first H steps (it used to be checked only once H steps had elapsed)."""
+    ach = ACH(dict(BASE_PARAMS))
+    rng = np.random.RandomState(3)
+    ring = HashRing(V=1000, n_nodes=10, seed=0)
+    M = []
+    for t in range(300):
+        ell = rng.uniform(0.3, 0.95, 10)
+        M.append(ach.step(ring, ell, float(0.5 * ell.mean() + 0.5 * ell.max()), t))
+    M = np.array(M)
+    H = BASE_PARAMS["H"]
+    step_max = M.max()
+    csum = np.concatenate([[0.0], np.cumsum(M)])
+    windows = csum[H:] - csum[:-H]
+    assert windows.max() < BASE_PARAMS["M_H"] + step_max + 1e-9
+    assert M[:H].sum() < BASE_PARAMS["M_H"] + step_max + 1e-9
+
+
+def test_aggregate_metrics_whole_run_cost():
+    from src.metrics import aggregate_metrics
+    D = np.zeros(10)
+    M = np.array([0.5, 0.0, 0.1, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.3])
+    agg = aggregate_metrics(D, M, warmup=2, H=3)
+    assert abs(agg["M_cum"] - 0.6) < 1e-12          # after warm-up
+    assert abs(agg["M_cum_all"] - 1.1) < 1e-12      # whole run
+    assert abs(agg["M_step_max"] - 0.3) < 1e-12
+    assert abs(agg["M_step_mean"] - 0.2) < 1e-12
+    assert abs(agg["M_win_max"] - 0.6) < 1e-12      # 0.5 + 0.0 + 0.1

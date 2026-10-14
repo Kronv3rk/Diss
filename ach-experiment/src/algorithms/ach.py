@@ -247,8 +247,11 @@ class ACH:
         base = min(self.M_max, self.M_H / max(self.H, 1))
         m = base * C
 
-        # Rolling H-window: pause if the last H steps already exhausted M_H
-        if len(self._M_history) >= self.H:
+        # Rolling H-window: pause if the last H steps (or all steps so far,
+        # while fewer than H have elapsed) already exhausted M_H.  The window
+        # is enforced from t = 0, so every window of length H satisfies
+        # sum(M_keys) < M_H + (largest single-step cost).
+        if self._M_history:
             window_sum = float(sum(self._M_history[-self.H:]))
             if window_sum >= self.M_H - 1e-9:
                 return 0.0

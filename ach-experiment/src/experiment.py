@@ -315,7 +315,8 @@ def run_experiment(cfg: dict, seed: int = 42) -> dict:
         name = algo.name
         D_arr = np.array(results[name]["D_trace"])
         M_arr = np.array(results[name]["M_trace"])
-        results[name]["agg"] = aggregate_metrics(D_arr, M_arr, warmup=warmup)
+        results[name]["agg"] = aggregate_metrics(
+            D_arr, M_arr, warmup=warmup, H=int(ach_params.get("H", 100)))
         # Convert ell_trace to numpy array when shapes are homogeneous
         # (may be inhomogeneous during node churn)
         try:
