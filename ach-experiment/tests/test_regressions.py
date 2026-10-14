@@ -57,6 +57,9 @@ def test_key_hashes_independent_of_token_positions():
 # 3 -------------------------------------------------------------------------
 def test_remove_node_hands_tokens_to_clockwise_successor():
     ring = HashRing(V=1000, n_nodes=10, seed=42)
+    # Use a shuffled layout: with the round-robin initial layout
+    # (token s -> node s % n) the successor of every node-9 token is node 0.
+    ring.a = np.random.RandomState(1).permutation(ring.a).astype(np.int32)
     before = ring.a.copy()
     moved = ring.remove_node(9)
     assert 9 in ring.dead
